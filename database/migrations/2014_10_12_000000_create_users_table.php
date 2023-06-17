@@ -19,6 +19,13 @@ return new class extends Migration {
             $table->rememberToken();
             $table->timestamps();
         });
+
+        \App\Models\User::query()->create([
+            'name' => 'Admin',
+            'role' => \App\Enums\Role::ADMIN->value,
+            'username' => 'admin',
+            'password' => bcrypt('password')
+        ]);
     }
 
     /**
