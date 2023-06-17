@@ -14,6 +14,12 @@ use Inertia\Response;
 
 class AuthenticatedSessionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only('destroy');
+        $this->middleware('guest')->except('destroy');
+    }
+
     /**
      * Display the login view.
      */
