@@ -10,10 +10,7 @@ const navigation = [
         current: current("admin.index"),
     },
     {
-        path: adminIndex.path,
-        name: adminIndex.name,
         text: adminIndex.text,
-        current: current("admin.index"),
         children: [
             {
                 path: adminIndex.path,

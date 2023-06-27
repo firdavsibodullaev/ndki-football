@@ -36,6 +36,10 @@ function toggleCollapse(target, event) {
     element.classList.toggle("h-0");
     icon.classList.toggle("-rotate-90");
 }
+
+function isCurrentUrl(navigationItem) {
+    return navigationItem.children.filter((item) => item.current).length > 0;
+}
 </script>
 
 <template>
@@ -217,7 +221,7 @@ function toggleCollapse(target, event) {
                         'h-0': !showingNavigationDropdown,
                         'h-[100vh]': showingNavigationDropdown,
                     }"
-                    class="w-full md:w-96 bg-gray-800 md:h-[100vh] overflow-y-hidden"
+                    class="w-full md:min-h-[100vh] md:w-72 bg-gray-800 md:h-full overflow-y-hidden"
                 >
                     <div class="space-y-1 px-2 pb-3 pt-8 sm:px-3">
                         <div v-for="(item, key) in navigation" :key="item.name">
@@ -247,9 +251,9 @@ function toggleCollapse(target, event) {
                                         class="block w-full rounded-md mt-2 px-3 py-2 relative text-left active:bg-gray-600"
                                         :class="{
                                             'bg-gray-900 text-white':
-                                                item.current,
+                                                isCurrentUrl(item),
                                             'text-gray-300 hover:bg-gray-700 hover:text-white':
-                                                !item.current,
+                                                !isCurrentUrl(item),
                                         }"
                                     >
                                         <span
@@ -259,21 +263,29 @@ function toggleCollapse(target, event) {
                                         </span>
                                         <ChevronLeftIcon
                                             class="block h-6 w-6 absolute top-2 right-1 chevron-icon"
+                                            :class="{
+                                                '-rotate-90':
+                                                    isCurrentUrl(item),
+                                            }"
                                             aria-hidden="true"
                                         />
                                     </button>
                                     <ul
                                         :id="'dropdown-' + key"
-                                        class="rounded-b-md overflow-y-hidden h-0"
+                                        class="rounded-b-md overflow-y-hidden"
                                         :class="{
-                                            'bg-gray-900 text-white':
-                                                item.current,
-                                            'text-gray-300 hover:bg-gray-700 hover:text-white':
-                                                !item.current,
+                                            'h-0': !isCurrentUrl(item),
+                                            'h-full': isCurrentUrl(item),
                                         }"
                                     >
                                         <li
-                                            class="border-t border-gray-800 px-7 py-2"
+                                            class="border-t border-gray-800 px-7 py-2 active:bg-gray-600"
+                                            :class="{
+                                                'bg-gray-900 text-white':
+                                                    child.current,
+                                                'text-gray-300 hover:bg-gray-700 hover:text-white':
+                                                    !child.current,
+                                            }"
                                             v-for="child in item.children"
                                             :key="item.name + child.name"
                                         >

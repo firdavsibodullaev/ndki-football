@@ -8,24 +8,23 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property-read int $id
- * @property string $name
- * @property Carbon $started_at
- * @property Carbon $finished_at
+ * @property string $last_name
+ * @property string $first_name
+ * @property string $patronymic
+ * @property int $number
+ * @property boolean $is_active
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class Season extends Model
+class Player extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'started_at',
-        'finished_at'
-    ];
-
-    protected $casts = [
-        'started_at' => 'date',
-        'finished_at' => 'date',
+        'last_name',
+        'first_name',
+        'patronymic',
+        'number',
+        'is_active'
     ];
 }

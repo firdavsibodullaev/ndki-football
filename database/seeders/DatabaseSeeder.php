@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->callOnce(SeasonSeeder::class);
+        $this->callOnce(TeamSeeder::class);
     }
 }
