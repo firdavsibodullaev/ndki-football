@@ -6,6 +6,12 @@ const list = [
         path: getUrl('admin')
     },
     {
+        text: 'Команды',
+        name: "admin.team.index",
+        method: 'get',
+        path: getUrl('admin/team')
+    },
+    {
         text: 'Профиль',
         name: "admin.profile.edit",
         method: 'get',

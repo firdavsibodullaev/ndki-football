@@ -1,19 +1,19 @@
 <script setup>
-import { ref } from "vue";
+import {ref} from "vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
-import { Link, usePage } from "@inertiajs/vue3";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
+import {Link, usePage} from "@inertiajs/vue3";
+import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
 import {
     Bars3Icon,
     BellIcon,
     XMarkIcon,
     ChevronLeftIcon,
 } from "@heroicons/vue/24/outline";
-import { route } from "@/utils/routes.js";
+import {route, setCurrentRoute} from "@/utils/routes.js";
 import DefaultUser from "@/Components/DefaultUser.vue";
 import navigation from "@/utils/navigation.js";
 
-const { props } = usePage();
+const {props} = usePage();
 const user = props.auth.user;
 const userNavigation = [route("admin.profile.edit"), route("logout")];
 
@@ -27,10 +27,10 @@ function toggleCollapse(target, event) {
         activeElement.tagName === "BUTTON"
             ? activeElement.querySelector(".chevron-icon")
             : activeElement.tagName === "SPAN"
-            ? activeElement.nextElementSibling
-            : activeElement.tagName === "path"
-            ? activeElement.parentElement
-            : activeElement;
+                ? activeElement.nextElementSibling
+                : activeElement.tagName === "path"
+                    ? activeElement.parentElement
+                    : activeElement;
 
     element.classList.toggle("h-full");
     element.classList.toggle("h-0");
@@ -40,6 +40,7 @@ function toggleCollapse(target, event) {
 function isCurrentUrl(navigationItem) {
     return navigationItem.children.filter((item) => item.current).length > 0;
 }
+
 </script>
 
 <template>
@@ -61,7 +62,7 @@ function isCurrentUrl(navigationItem) {
                                 class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                             >
                                 <span class="sr-only">View notifications</span>
-                                <BellIcon class="h-6 w-6" aria-hidden="true" />
+                                <BellIcon class="h-6 w-6" aria-hidden="true"/>
                             </button>
 
                             <!-- Profile dropdown -->
@@ -71,7 +72,7 @@ function isCurrentUrl(navigationItem) {
                                         class="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                     >
                                         <span class="sr-only"
-                                            >Open user menu</span
+                                        >Open user menu</span
                                         >
                                         <DefaultUser
                                             v-if="!user.avatar"
@@ -193,7 +194,7 @@ function isCurrentUrl(navigationItem) {
                             class="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                         >
                             <span class="sr-only">View notifications</span>
-                            <BellIcon class="h-6 w-6" aria-hidden="true" />
+                            <BellIcon class="h-6 w-6" aria-hidden="true"/>
                         </button>
                     </div>
                     <div
@@ -230,14 +231,15 @@ function isCurrentUrl(navigationItem) {
                                 :href="item.path"
                                 class="block rounded-md px-3 my-2 py-2 text-base font-medium active:bg-gray-600"
                                 :class="{
-                                    'bg-gray-900 text-white': item.current,
+                                    'bg-gray-900 text-white active': item.current,
                                     'text-gray-300 hover:bg-gray-700 hover:text-white':
                                         !item.current,
                                 }"
+                                @click.prevent="setCurrentRoute(item, $event)"
                                 :aria-current="
                                     item.current ? 'page' : undefined
                                 "
-                                >{{ item.text }}
+                            >{{ item.text }}
                             </Link>
                             <ul v-else>
                                 <li>
@@ -250,7 +252,7 @@ function isCurrentUrl(navigationItem) {
                                         "
                                         class="block w-full rounded-md mt-2 px-3 py-2 relative text-left active:bg-gray-600"
                                         :class="{
-                                            'bg-gray-900 text-white':
+                                            'bg-gray-900 text-white active':
                                                 isCurrentUrl(item),
                                             'text-gray-300 hover:bg-gray-700 hover:text-white':
                                                 !isCurrentUrl(item),
@@ -281,7 +283,7 @@ function isCurrentUrl(navigationItem) {
                                         <li
                                             class="border-t border-gray-800 px-7 py-2 active:bg-gray-600"
                                             :class="{
-                                                'bg-gray-900 text-white':
+                                                'bg-gray-900 text-white active':
                                                     child.current,
                                                 'text-gray-300 hover:bg-gray-700 hover:text-white':
                                                     !child.current,
@@ -290,7 +292,8 @@ function isCurrentUrl(navigationItem) {
                                             :key="item.name + child.name"
                                         >
                                             <Link :href="child.path"
-                                                >{{ child.text }}
+                                                  @click.prevent="setCurrentRoute(child, $event)"
+                                            >{{ child.text }}
                                             </Link>
                                         </li>
                                     </ul>
@@ -303,12 +306,12 @@ function isCurrentUrl(navigationItem) {
             <div class="block flex-auto">
                 <header class="bg-white shadow">
                     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                        <slot name="header" />
+                        <slot name="header"/>
                     </div>
                 </header>
                 <main>
                     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-                        <slot />
+                        <slot/>
                     </div>
                 </main>
             </div>

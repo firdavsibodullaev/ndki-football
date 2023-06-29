@@ -1,6 +1,7 @@
-import { current, route } from "@/utils/routes.js";
+import {current, route} from "@/utils/routes.js";
 
 let adminIndex = route("admin.index");
+let teams = route("admin.team.index");
 
 const navigation = [
     {
@@ -10,20 +11,14 @@ const navigation = [
         current: current("admin.index"),
     },
     {
-        text: adminIndex.text,
+        text: 'Команды',
         children: [
             {
-                path: adminIndex.path,
-                name: adminIndex.name,
-                text: adminIndex.text,
-                current: current("admin.index"),
-            },
-            {
-                path: adminIndex.path,
-                name: adminIndex.name,
-                text: adminIndex.text,
-                current: current("admin.index"),
-            },
+                path: teams.path,
+                name: teams.name,
+                text: teams.text,
+                current: current("admin.team.index"),
+            }
         ],
     },
 ];
