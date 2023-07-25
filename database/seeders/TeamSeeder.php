@@ -20,7 +20,7 @@ class TeamSeeder extends Seeder
             ->create()
             ->each(function (Team $team) {
                 $fake_image = $this->generateFakeImage();
-                $team->addMediaFromDisk($fake_image)->toMediaCollection();
+                $team->addMediaFromDisk($fake_image, 'local')->toMediaCollection();
             });
 
     }
@@ -29,6 +29,6 @@ class TeamSeeder extends Seeder
     {
         Storage::disk('local')->copy('fake/fake.svg', 'fake/fake-1.svg');
 
-        return 'fake-1.svg';
+        return 'fake/fake-1.svg';
     }
 }

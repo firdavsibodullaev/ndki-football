@@ -14,6 +14,7 @@ class TeamRepository implements TeamRepositoryInterface
     public function fetch(TeamDTO $dto): Collection
     {
         return Team::query()
+            ->with('media')
             ->when($dto->fetch_only->is(TeamEnum::ONLY_ACTIVE),
                 fn(Builder $builder) => $builder->where('is_active', true)
             )
