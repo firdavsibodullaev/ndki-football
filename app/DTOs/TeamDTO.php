@@ -2,11 +2,15 @@
 
 namespace App\DTOs;
 
-use App\Enums\Team;
+use Illuminate\Http\UploadedFile;
 
-class TeamDTO
+class TeamDTO extends BaseDTO
 {
-    public function __construct(public readonly Team $fetch_only)
+    public function __construct(
+        public readonly string $name,
+        public bool            $is_active = true,
+        public ?UploadedFile   $logo = null
+    )
     {
     }
 }

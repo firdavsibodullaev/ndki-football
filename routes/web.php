@@ -24,11 +24,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('team', TeamController::class)
         ->whereNumber('team');
 
-    Route::prefix('profile')->name('profile.')->group(function () {
-        Route::get('', [ProfileController::class, 'edit'])->name('edit');
-        Route::patch('', [ProfileController::class, 'update'])->name('update');
-        Route::delete('', [ProfileController::class, 'destroy'])->name('destroy');
-    });
+//    Route::prefix('profile')->name('profile.')->group(function () {
+//        Route::get('', [ProfileController::class, 'edit'])->name('edit');
+//        Route::patch('', [ProfileController::class, 'update'])->name('update');
+//        Route::delete('', [ProfileController::class, 'destroy'])->name('destroy');
+//    });
 });
 
 require __DIR__ . '/auth.php';

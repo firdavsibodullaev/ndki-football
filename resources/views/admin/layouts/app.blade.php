@@ -34,7 +34,9 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                @yield('content')
+                <div class="pt-3">
+                    @yield('content')
+                </div>
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->

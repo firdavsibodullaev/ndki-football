@@ -2,6 +2,7 @@
 
 namespace App\View\Composers;
 
+use App\Constants\RouteActive;
 use App\Constructors\Sidebar\Sidebar as SidebarConstructor;
 use App\Constructors\Sidebar\SidebarItem;
 use Illuminate\Support\Facades\Route;
@@ -10,7 +11,8 @@ use Illuminate\View\View;
 class Sidebar
 {
     public function __construct(
-        private readonly SidebarConstructor $sidebar
+        private readonly SidebarConstructor $sidebar,
+        private readonly RouteActive        $routeActive
     )
     {
     }
@@ -24,22 +26,35 @@ class Sidebar
 
     private function addPages(): void
     {
-        $mainPage = SidebarItem::make(
-            __('Главная страница'),
-            route('admin.index'),
-            $this->isActive('admin.index')
+        $this->addMainPage();
+        $this->addTeamPages();
+    }
+
+    private function addMainPage(): void
+    {
+        $this->sidebar->addPage(
+            page: SidebarItem::make(
+                title: __('Главная страница'),
+                path: route('admin.index'),
+                active: $this->routeActive->isMainPage()
+            )
         );
-
-        $this->sidebar->addPage($mainPage);
     }
 
-    private function isActive(string $name): bool
+    private function addTeamPages(): void
     {
-        return $this->isCurrentRoute($name);
-    }
-
-    private function isCurrentRoute(string $name): bool
-    {
-        return Route::currentRouteName() === $name;
+        $this->sidebar->addPage(
+            page: SidebarItem::make(
+                title: __('Команды'),
+                active: $this->routeActive->isList(),
+                children: [
+                    SidebarItem::make(
+                        title: __('Команды'),
+                        path: route('admin.team.index'),
+                        active: $this->routeActive->isTeamList()
+                    )
+                ]
+            )
+        );
     }
 }

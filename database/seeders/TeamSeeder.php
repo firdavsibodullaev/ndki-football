@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\MediaCollection;
 use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -20,7 +21,7 @@ class TeamSeeder extends Seeder
             ->create()
             ->each(function (Team $team) {
                 $fake_image = $this->generateFakeImage();
-                $team->addMediaFromDisk($fake_image, 'local')->toMediaCollection();
+                $team->addMediaFromDisk($fake_image, 'local')->toMediaCollection(MediaCollection::TEAM_LOGO->value);
             });
 
     }

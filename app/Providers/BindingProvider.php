@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\MediaLibraryRepositoryInterface;
 use App\Contracts\TeamRepositoryInterface;
 use App\Contracts\TeamServiceInterface;
+use App\Repositories\MediaLibraryRepository;
 use App\Repositories\TeamRepository;
 use App\Services\TeamService;
 use Illuminate\Support\ServiceProvider;
@@ -14,6 +16,7 @@ class BindingProvider extends ServiceProvider
         TeamServiceInterface::class => TeamService::class
     ];
     protected array $repositories = [
+        MediaLibraryRepositoryInterface::class => MediaLibraryRepository::class,
         TeamRepositoryInterface::class => TeamRepository::class
     ];
 

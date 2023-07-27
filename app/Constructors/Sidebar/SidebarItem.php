@@ -7,20 +7,20 @@ use Illuminate\Contracts\Support\Htmlable;
 class SidebarItem implements Htmlable
 {
     public static function make(
-        string $title,
-        string $path,
-        bool   $active,
-        array  $children = []
+        string  $title,
+        ?string $path = null,
+        bool    $active = false,
+        array   $children = []
     ): static
     {
         return new static($title, $path, $active, $children);
     }
 
     public function __construct(
-        private readonly string $title,
-        private readonly string $path,
-        private readonly bool   $active,
-        private readonly array  $children = []
+        private readonly string  $title,
+        private readonly ?string $path = null,
+        private readonly bool    $active = false,
+        private readonly array   $children = []
     )
     {
     }
