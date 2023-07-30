@@ -5,7 +5,6 @@ namespace App\View\Composers;
 use App\Constants\RouteActive;
 use App\Constructors\Sidebar\Sidebar as SidebarConstructor;
 use App\Constructors\Sidebar\SidebarItem;
-use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
 class Sidebar
