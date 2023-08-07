@@ -44,9 +44,9 @@ class Player extends Model implements HasMedia
 
     public function nameInitials(): Attribute
     {
-        $first_name_initials = $this->first_name[0];
-        $patronymic_initials = $this->patronymic[0];
-        return Attribute::get(fn() => "$this->last_name $first_name_initials. $patronymic_initials.");
+        $first_name_initials = mb_strtoupper($this->first_name[0]);
+        $patronymic_initials = mb_strtoupper($this->patronymic[0]);
+        return Attribute::get(fn() => "$this->last_name $first_name_initials.$patronymic_initials.");
     }
 
     public function avatar(): MorphOne
