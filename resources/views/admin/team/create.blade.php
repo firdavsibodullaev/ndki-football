@@ -12,19 +12,17 @@
                   enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <div class="form-group">
-                        <label for="name">{{ __('Название') }}</label>
-                        <input type="text"
-                               class="form-control @error('name') is-invalid @enderror"
-                               id="name"
-                               name="name"
-                               value="{{ old('name') }}"
-                               placeholder="{{ __('Введите название') }}">
-                        @error('name')
-                        <span id="username-error"
-                              class="error invalid-feedback">{{ $message }}</span>
-                        @enderror
-                    </div>
+                    <label for="name">{{ __('Название') }}</label>
+                    <input type="text"
+                           class="form-control @error('name') is-invalid @enderror"
+                           id="name"
+                           name="name"
+                           value="{{ old('name') }}"
+                           placeholder="{{ __('Введите название') }}">
+                    @error('name')
+                    <span id="name-error"
+                          class="error invalid-feedback">{{ $message }}</span>
+                    @enderror
                 </div>
                 <x-form.image-input :name="'logo'"
                                     :text="'Логотип'"
