@@ -28,8 +28,8 @@ class TeamSeeder extends Seeder
 
     private function generateFakeImage(): string
     {
-        Storage::disk('local')->copy('fake/fake.svg', 'fake/fake-1.svg');
+        Storage::disk('local')->copy('fake/fake.png', 'fake/fake-1.png');
 
-        return 'fake/fake-1.svg';
+        return 'fake/fake-1.png';
     }
 }
