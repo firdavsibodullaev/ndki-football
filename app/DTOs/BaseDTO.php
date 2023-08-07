@@ -2,7 +2,9 @@
 
 namespace App\DTOs;
 
-abstract class BaseDTO
+use Illuminate\Contracts\Support\Arrayable;
+
+abstract class BaseDTO implements Arrayable
 {
     public function toArray(): array
     {

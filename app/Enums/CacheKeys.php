@@ -9,4 +9,6 @@ enum CacheKeys: string
     use CacheTrait;
 
     case TEAM = 'team';
+    case PLAYER = 'player';
+
 }

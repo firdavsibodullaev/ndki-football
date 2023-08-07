@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\MainController;
+use App\Http\Controllers\Admin\PlayerController;
 use App\Http\Controllers\Admin\TeamController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +23,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::resource('team', TeamController::class)
         ->whereNumber('team');
+    Route::resource('player', PlayerController::class)
+        ->whereNumber('player');
 
 //    Route::prefix('profile')->name('profile.')->group(function () {
 //        Route::get('', [ProfileController::class, 'edit'])->name('edit');

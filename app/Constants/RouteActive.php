@@ -23,7 +23,7 @@ class RouteActive
 
     public function isList(): bool
     {
-        return $this->isTeamList();
+        return $this->isTeamList() || $this->isPlayerList();
     }
 
     public function isTeamList(): bool
@@ -33,6 +33,16 @@ class RouteActive
             'admin.team.create',
             'admin.team.edit',
             'admin.team.show',
+        ]);
+    }
+
+    public function isPlayerList(): bool
+    {
+        return in_array($this->current(), [
+            'admin.player.index',
+            'admin.player.create',
+            'admin.player.edit',
+            'admin.player.show',
         ]);
     }
 }

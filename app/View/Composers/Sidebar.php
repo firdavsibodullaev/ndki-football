@@ -51,6 +51,11 @@ class Sidebar
                         title: __('Команды'),
                         path: route('admin.team.index'),
                         active: $this->routeActive->isTeamList()
+                    ),
+                    SidebarItem::make(
+                        title: __('Игроки'),
+                        path: route('admin.player.index'),
+                        active: $this->routeActive->isPlayerList()
                     )
                 ]
             )
