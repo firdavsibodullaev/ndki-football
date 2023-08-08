@@ -16,6 +16,8 @@ return new class extends Migration {
             $table->date('started_at');
             $table->date('finished_at');
             $table->timestamps();
+
+            $table->index('started_at', 'finished_at');
         });
     }
 

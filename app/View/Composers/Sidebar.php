@@ -68,12 +68,12 @@ class Sidebar
         $this->sidebar->addPage(
             page: SidebarItem::make(
                 title: __('Матчи'),
-                active: $this->routeActive->isList(),
+                active: $this->routeActive->isMatchesList(),
                 children: [
                     SidebarItem::make(
                         title: __('Сезоны'),
-                        path: route('admin.team.index'),
-                        active: $this->routeActive->isTeamList()
+                        path: route('admin.season.index'),
+                        active: $this->routeActive->isSeasonList()
                     )
                 ]
             )

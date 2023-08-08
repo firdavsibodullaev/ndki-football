@@ -46,3 +46,17 @@ if (!function_exists('get_initials')) {
         return ucfirst($value)[0];
     }
 }
+
+if (!function_exists('is_active')) {
+    function is_active(bool $check): string
+    {
+        if ($check) {
+            return "<span class=\"text-success\">
+                        <i class=\"fas fa-check-circle\"></i>
+                    </span>";
+        }
+        return "<span class=\"text-danger\">
+                    <i class=\"fas fa-times-circle\"></i>
+                </span>";
+    }
+}

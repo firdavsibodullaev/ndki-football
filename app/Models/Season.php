@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -13,6 +14,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon $finished_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read string $dates
+ * @property-read bool $is_current
  */
 class Season extends Model
 {
@@ -28,4 +31,16 @@ class Season extends Model
         'started_at' => 'date',
         'finished_at' => 'date',
     ];
+
+    public function dates(): Attribute
+    {
+        $from = $this->started_at->format('d.m.Y');
+        $to = $this->finished_at->format('d.m.Y');
+        return Attribute::get(fn() => "$from - $to");
+    }
+
+    public function isCurrent(): Attribute
+    {
+        return Attribute::get(fn() => now()->between($this->started_at, $this->finished_at));
+    }
 }

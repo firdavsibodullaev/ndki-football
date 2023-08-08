@@ -33,15 +33,7 @@
                                 <td>{{ $player->team->name }}</td>
                                 <td>{{ $player->number }}</td>
                                 <td>
-                                    @if($player->is_active)
-                                        <span class="text-success">
-                                    <i class="fas fa-check-circle"></i>
-                                </span>
-                                    @else
-                                        <span class="text-danger">
-                                    <i class="fas fa-times-circle"></i>
-                                </span>
-                                    @endif
+                                    {!! is_active($player->is_active) !!}
                                 </td>
                                 <td>
                                     <a href="{{ rroute('admin.player.show', $player->id) }}"

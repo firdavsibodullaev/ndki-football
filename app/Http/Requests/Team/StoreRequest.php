@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Team;
 
-use App\DTOs\TeamDTO;
+use App\DTOs\Team\TeamDTO;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 

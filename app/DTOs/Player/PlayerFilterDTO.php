@@ -1,6 +1,8 @@
 <?php
 
-namespace App\DTOs;
+namespace App\DTOs\Player;
+
+use App\DTOs\BaseDTO;
 
 class PlayerFilterDTO extends BaseDTO
 {

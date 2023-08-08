@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Player;
 
-use App\DTOs\PlayerFilterDTO;
+use App\DTOs\Player\PlayerFilterDTO;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 

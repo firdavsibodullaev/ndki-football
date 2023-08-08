@@ -1,7 +1,8 @@
 <?php
 
-namespace App\DTOs;
+namespace App\DTOs\Team;
 
+use App\DTOs\BaseDTO;
 use Illuminate\Http\UploadedFile;
 
 class TeamDTO extends BaseDTO

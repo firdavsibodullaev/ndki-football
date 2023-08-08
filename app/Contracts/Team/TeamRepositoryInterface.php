@@ -2,8 +2,8 @@
 
 namespace App\Contracts\Team;
 
-use App\DTOs\TeamDTO;
-use App\DTOs\TeamFilterDTO;
+use App\DTOs\Team\TeamDTO;
+use App\DTOs\Team\TeamFilterDTO;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Collection;
 

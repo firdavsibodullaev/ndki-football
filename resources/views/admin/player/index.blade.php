@@ -39,15 +39,7 @@
                         <td>{{ $player->team->name }}</td>
                         <td class="text-center">{{ $player->number }}</td>
                         <td class="text-center">
-                            @if($player->is_active)
-                                <span class="text-success">
-                                    <i class="fas fa-check-circle"></i>
-                                </span>
-                            @else
-                                <span class="text-danger">
-                                    <i class="fas fa-times-circle"></i>
-                                </span>
-                            @endif
+                            {!! is_active($player->is_active) !!}
                         </td>
                         <td class="text-right pr-5">
                             <a href="{{ rroute('admin.player.show', $player->id) }}"
@@ -73,6 +65,3 @@
     </div>
     <x-modals.delete-modal :action="rroute('admin.player.destroy', 'ID0')"/>
 @endsection
-@pushonce('js')
-    <script src="{{ asset('assets/dist/js/app.js') }}"></script>
-@endpushonce

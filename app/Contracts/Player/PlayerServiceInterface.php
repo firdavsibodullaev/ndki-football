@@ -2,8 +2,8 @@
 
 namespace App\Contracts\Player;
 
-use App\DTOs\PlayerDTO;
-use App\DTOs\PlayerFilterDTO;
+use App\DTOs\Player\PlayerDTO;
+use App\DTOs\Player\PlayerFilterDTO;
 use App\Models\Player;
 use Illuminate\Database\Eloquent\Collection;
 

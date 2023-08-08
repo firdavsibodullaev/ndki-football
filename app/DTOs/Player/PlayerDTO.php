@@ -1,7 +1,8 @@
 <?php
 
-namespace App\DTOs;
+namespace App\DTOs\Player;
 
+use App\DTOs\BaseDTO;
 use Illuminate\Http\UploadedFile;
 
 class PlayerDTO extends BaseDTO

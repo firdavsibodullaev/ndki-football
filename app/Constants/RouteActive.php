@@ -45,4 +45,19 @@ class RouteActive
             'admin.player.show',
         ]);
     }
+
+    public function isMatchesList()
+    {
+        return $this->isSeasonList();
+    }
+
+    public function isSeasonList(): bool
+    {
+        return in_array($this->current(), [
+            'admin.season.index',
+            'admin.season.create',
+            'admin.season.edit',
+            'admin.season.show',
+        ]);
+    }
 }

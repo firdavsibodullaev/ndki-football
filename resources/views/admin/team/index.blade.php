@@ -35,15 +35,7 @@
                         </td>
                         <td>{{ $team->name }}</td>
                         <td class="text-center">
-                            @if($team->is_active)
-                                <span class="text-success">
-                                    <i class="fas fa-check-circle"></i>
-                                </span>
-                            @else
-                                <span class="text-danger">
-                                    <i class="fas fa-times-circle"></i>
-                                </span>
-                            @endif
+                            {!! is_active($team->is_active) !!}
                         </td>
                         <td class="text-right pr-5">
                             <a href="{{ route('admin.team.show', $team->id) }}"
@@ -69,6 +61,3 @@
     </div>
     <x-modals.delete-modal :action="route('admin.team.destroy', 'ID0')"/>
 @endsection
-@pushonce('js')
-    <script src="{{ asset('assets/dist/js/app.js') }}"></script>
-@endpushonce
