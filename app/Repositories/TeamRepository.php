@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Contracts\TeamRepositoryInterface;
+use App\Contracts\Team\TeamRepositoryInterface;
 use App\DTOs\TeamDTO;
 use App\DTOs\TeamFilterDTO;
 use App\Enums\Team as TeamEnum;

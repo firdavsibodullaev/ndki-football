@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Contracts\PlayerRepositoryInterface;
+use App\Contracts\Player\PlayerRepositoryInterface;
 use App\DTOs\PlayerDTO;
 use App\DTOs\PlayerFilterDTO;
 use App\Models\Player;

@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Contracts\MediaLibraryRepositoryInterface;
-use App\Contracts\MediaLibraryServiceInterface;
-use App\Contracts\PlayerRepositoryInterface;
-use App\Contracts\PlayerServiceInterface;
-use App\Contracts\TeamRepositoryInterface;
-use App\Contracts\TeamServiceInterface;
+use App\Contracts\MediaLibrary\MediaLibraryRepositoryInterface;
+use App\Contracts\MediaLibrary\MediaLibraryServiceInterface;
+use App\Contracts\Player\PlayerRepositoryInterface;
+use App\Contracts\Player\PlayerServiceInterface;
+use App\Contracts\Team\TeamRepositoryInterface;
+use App\Contracts\Team\TeamServiceInterface;
 use App\Repositories\MediaLibraryRepository;
 use App\Repositories\PlayerRepository;
 use App\Repositories\TeamRepository;

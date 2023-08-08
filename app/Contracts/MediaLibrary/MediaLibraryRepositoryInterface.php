@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Contracts\MediaLibrary;
 
 use App\Enums\MediaCollection;
 use Illuminate\Http\UploadedFile;

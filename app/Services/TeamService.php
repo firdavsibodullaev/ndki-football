@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Contracts\MediaLibraryServiceInterface;
-use App\Contracts\TeamRepositoryInterface;
-use App\Contracts\TeamServiceInterface;
+use App\Contracts\MediaLibrary\MediaLibraryServiceInterface;
+use App\Contracts\Team\TeamRepositoryInterface;
+use App\Contracts\Team\TeamServiceInterface;
 use App\DTOs\TeamDTO;
 use App\DTOs\TeamFilterDTO;
 use App\Enums\CacheKeys;

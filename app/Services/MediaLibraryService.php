@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Contracts\MediaLibraryRepositoryInterface;
-use App\Contracts\MediaLibraryServiceInterface;
+use App\Contracts\MediaLibrary\MediaLibraryRepositoryInterface;
+use App\Contracts\MediaLibrary\MediaLibraryServiceInterface;
 use App\Enums\MediaCollection;
 use Illuminate\Http\UploadedFile;
 use Spatie\MediaLibrary\HasMedia;

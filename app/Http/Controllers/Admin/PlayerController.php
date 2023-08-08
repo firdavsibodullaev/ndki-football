@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Contracts\PlayerServiceInterface;
-use App\Contracts\TeamServiceInterface;
+use App\Contracts\Player\PlayerServiceInterface;
+use App\Contracts\Team\TeamServiceInterface;
 use App\Enums\FromRoute;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Player\FilterRequest;

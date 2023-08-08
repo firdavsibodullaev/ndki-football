@@ -26,7 +26,8 @@ class Sidebar
     private function addPages(): void
     {
         $this->addMainPage();
-        $this->addTeamPages();
+        $this->addListPages();
+        $this->addMatchesPages();
     }
 
     private function addMainPage(): void
@@ -40,11 +41,11 @@ class Sidebar
         );
     }
 
-    private function addTeamPages(): void
+    private function addListPages(): void
     {
         $this->sidebar->addPage(
             page: SidebarItem::make(
-                title: __('Команды'),
+                title: __('Справочник'),
                 active: $this->routeActive->isList(),
                 children: [
                     SidebarItem::make(
@@ -56,6 +57,23 @@ class Sidebar
                         title: __('Игроки'),
                         path: route('admin.player.index'),
                         active: $this->routeActive->isPlayerList()
+                    )
+                ]
+            )
+        );
+    }
+
+    private function addMatchesPages(): void
+    {
+        $this->sidebar->addPage(
+            page: SidebarItem::make(
+                title: __('Матчи'),
+                active: $this->routeActive->isList(),
+                children: [
+                    SidebarItem::make(
+                        title: __('Сезоны'),
+                        path: route('admin.team.index'),
+                        active: $this->routeActive->isTeamList()
                     )
                 ]
             )

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Contracts\Player;
 
 use App\DTOs\PlayerDTO;
 use App\DTOs\PlayerFilterDTO;

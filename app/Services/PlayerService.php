@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Contracts\MediaLibraryServiceInterface;
-use App\Contracts\PlayerRepositoryInterface;
-use App\Contracts\PlayerServiceInterface;
+use App\Contracts\MediaLibrary\MediaLibraryServiceInterface;
+use App\Contracts\Player\PlayerRepositoryInterface;
+use App\Contracts\Player\PlayerServiceInterface;
 use App\DTOs\PlayerDTO;
 use App\DTOs\PlayerFilterDTO;
 use App\Enums\CacheKeys;

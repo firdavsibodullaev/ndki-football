@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Contracts\TeamServiceInterface;
+use App\Contracts\Team\TeamServiceInterface;
 use App\Enums\FromRoute;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Team\StoreRequest;
