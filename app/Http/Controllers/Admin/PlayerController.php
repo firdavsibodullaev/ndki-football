@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contracts\PlayerServiceInterface;
+use App\Contracts\TeamServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Player\FilterRequest;
+use App\Http\Requests\Player\StoreRequest;
+use App\Http\Requests\Player\UpdateRequest;
 use App\Models\Player;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class PlayerController extends Controller
 {
     public function __construct(
-        private readonly PlayerServiceInterface $playerService
+        private readonly PlayerServiceInterface $playerService,
+        private readonly TeamServiceInterface   $teamService
     )
     {
     }
@@ -30,48 +34,61 @@ class PlayerController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.player.create', [
+            'teams' => $this->teamService->fetchActive()
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request): RedirectResponse
     {
-        //
+        $this->playerService->createAndClearCache($request->toDto());
+
+        return to_rroute('admin.player.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Player $player)
+    public function show(Player $player): View
     {
-        //
+        return view('admin.player.show', [
+            'player' => $player->load(['team', 'avatar'])
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Player $player)
+    public function edit(Player $player): View
     {
-        //
+        return view('admin.player.edit', [
+            'player' => $player,
+            'teams' => $this->teamService->fetchActive()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Player $player)
+    public function update(UpdateRequest $request, Player $player): RedirectResponse
     {
-        //
+        $this->playerService->updateAndClearCache($player, $request->toDto());
+
+        return to_rroute('admin.player.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Player $player)
+    public function destroy(Player $player): RedirectResponse
     {
-        //
+        $this->playerService->deleteAndClearCache($player);
+
+        return to_rroute('admin.player.index');
     }
 }

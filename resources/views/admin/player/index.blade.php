@@ -8,7 +8,7 @@
         <div class="card-body">
 
             <div class="my-3">
-                <a href="{{ route('admin.player.create') }}" class="btn btn-primary">{{ __('Новый игрок') }}</a>
+                <a href="{{ rroute('admin.player.create') }}" class="btn btn-primary">{{ __('Новый игрок') }}</a>
             </div>
 
             <table class="table table-striped">
@@ -24,22 +24,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($players as $team)
+                @foreach($players as $player)
                     <tr>
-                        <td>{{ $team->id }}</td>
+                        <td>{{ $player->id }}</td>
                         <td>
                             <div class="d-flex h-100 align-content-center justify-content-center">
-                                <x-fancy-box :url="$team->avatar?->getFullUrl()"
-                                             :alt="$team->avatar?->file_name"
+                                <x-fancy-box :url="$player->avatar?->getFullUrl()"
+                                             :alt="$player->avatar?->file_name"
                                              :css="'width:1.5rem; object-fit: contain; aspect-ratio: 1'"
                                              :gallery="'team-logo'"/>
                             </div>
                         </td>
-                        <td>{{ $team->name_initials }}</td>
-                        <td>{{ $team->team->name }}</td>
-                        <td class="text-center">{{ $team->number }}</td>
+                        <td>{{ $player->name_initials }}</td>
+                        <td>{{ $player->team->name }}</td>
+                        <td class="text-center">{{ $player->number }}</td>
                         <td class="text-center">
-                            @if($team->is_active)
+                            @if($player->is_active)
                                 <span class="text-success">
                                     <i class="fas fa-check-circle"></i>
                                 </span>
@@ -50,17 +50,17 @@
                             @endif
                         </td>
                         <td class="text-right pr-5">
-                            <a href="{{ route('admin.player.show', $team->id) }}"
+                            <a href="{{ rroute('admin.player.show', $player->id) }}"
                                class="btn btn-success">
                                 {{ __('Смотреть') }}
                             </a>
-                            <a href="{{ route('admin.player.edit', $team->id) }}"
+                            <a href="{{ rroute('admin.player.edit', $player->id) }}"
                                class="btn btn-warning">
                                 {{ __('Изменить') }}
                             </a>
                             <a href="javascript:void(0)"
                                onclick="openDeleteModal(this)"
-                               data-id="{{ $team->id }}"
+                               data-id="{{ $player->id }}"
                                class="btn btn-danger">
                                 {{ __('Удалить') }}
                             </a>
@@ -71,7 +71,7 @@
             </table>
         </div>
     </div>
-    <x-modals.delete-modal :action="route('admin.player.destroy', 'ID0')"/>
+    <x-modals.delete-modal :action="rroute('admin.player.destroy', 'ID0')"/>
 @endsection
 @pushonce('js')
     <script src="{{ asset('assets/dist/js/app.js') }}"></script>

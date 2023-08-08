@@ -12,3 +12,8 @@ function openDeleteModal(el) {
 
     $('#delete-modal').modal('show');
 }
+$(function () {
+    $('.select2').select2({
+        theme: 'bootstrap4'
+    });
+});

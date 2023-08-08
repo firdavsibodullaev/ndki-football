@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Contracts\MediaLibraryRepositoryInterface;
+use App\Contracts\MediaLibraryServiceInterface;
 use App\Contracts\TeamRepositoryInterface;
 use App\Contracts\TeamServiceInterface;
 use App\DTOs\TeamDTO;
@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\DB;
 class TeamService implements TeamServiceInterface
 {
     public function __construct(
-        private readonly MediaLibraryRepositoryInterface $libraryRepository,
-        private readonly TeamRepositoryInterface         $teamRepository
+        private readonly MediaLibraryServiceInterface $libraryService,
+        private readonly TeamRepositoryInterface      $teamRepository
     )
     {
     }
@@ -51,11 +51,7 @@ class TeamService implements TeamServiceInterface
         $team = DB::transaction(function () use ($payload) {
             $team = $this->teamRepository->create($payload);
 
-            $this->libraryRepository->addMedia(
-                model: $team,
-                file: $payload->logo,
-                collection: MediaCollection::TEAM_LOGO
-            );
+            $this->libraryService->addOneMedia($team, $payload->logo, MediaCollection::TEAM_LOGO);
 
             return $team;
         });
@@ -71,12 +67,7 @@ class TeamService implements TeamServiceInterface
             $team = $this->teamRepository->update($team, $payload);
 
             if ($payload->logo) {
-                $this->libraryRepository->delete($team, MediaCollection::TEAM_LOGO);
-                $this->libraryRepository->addMedia(
-                    model: $team,
-                    file: $payload->logo,
-                    collection: MediaCollection::TEAM_LOGO
-                );
+                $this->libraryService->addOneMedia($team, $payload->logo, MediaCollection::TEAM_LOGO);
             }
 
             return $team;

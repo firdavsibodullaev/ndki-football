@@ -34,6 +34,7 @@ class Player extends Model implements HasMedia
         'last_name',
         'first_name',
         'patronymic',
+        'team_id',
         'number',
         'is_active'
     ];
@@ -42,10 +43,18 @@ class Player extends Model implements HasMedia
         TeamFilter::class => 'team_id'
     ];
 
+    public function fullName(): Attribute
+    {
+        return Attribute::get(
+            fn() => "$this->last_name $this->first_name $this->patronymic"
+        );
+    }
+
     public function nameInitials(): Attribute
     {
-        $first_name_initials = mb_strtoupper($this->first_name[0]);
-        $patronymic_initials = mb_strtoupper($this->patronymic[0]);
+        $first_name_initials = get_initials($this->first_name);
+        $patronymic_initials = get_initials($this->patronymic);
+
         return Attribute::get(fn() => "$this->last_name $first_name_initials.$patronymic_initials.");
     }
 

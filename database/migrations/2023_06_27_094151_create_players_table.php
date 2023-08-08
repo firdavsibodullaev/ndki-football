@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->boolean('is_active');
             $table->foreignId('team_id')->constrained('teams');
             $table->timestamps();
+
+            $table->index('team_id', 'number');
         });
     }
 

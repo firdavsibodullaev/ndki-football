@@ -1,14 +1,17 @@
 <div class="form-group">
     <label for="{{ $id }}">{{ $text }}</label>
     <input type="file"
-           class="form-control-file"
+           class="form-control-file @error($name) is-invalid @enderror"
            name="{{ $name }}"
            id="{{ $id }}"
            data-file="{{ $file?->getFullUrl() }}"
            onchange="imagePreview(this)"
            @required($isRequired)
            accept="image/svg+xml,image/jpeg, image/jpg, image/png">
-
+    @error($name)
+    <span id="{{ $name }}-error"
+          class="error invalid-feedback">{{ $message }}</span>
+    @enderror
     <div @class(['d-none' => !$file, 'preview-block mt-3'])>
         <x-fancy-box :url="$file?->getFullUrl()"
                      :alt="$file?->file_name"

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Contracts\MediaLibraryRepositoryInterface;
+use App\Contracts\MediaLibraryServiceInterface;
 use App\Contracts\PlayerRepositoryInterface;
 use App\Contracts\PlayerServiceInterface;
 use App\Contracts\TeamRepositoryInterface;
@@ -10,6 +11,7 @@ use App\Contracts\TeamServiceInterface;
 use App\Repositories\MediaLibraryRepository;
 use App\Repositories\PlayerRepository;
 use App\Repositories\TeamRepository;
+use App\Services\MediaLibraryService;
 use App\Services\PlayerService;
 use App\Services\TeamService;
 use Illuminate\Support\ServiceProvider;
@@ -17,6 +19,7 @@ use Illuminate\Support\ServiceProvider;
 class BindingProvider extends ServiceProvider
 {
     protected array $services = [
+        MediaLibraryServiceInterface::class => MediaLibraryService::class,
         PlayerServiceInterface::class => PlayerService::class,
         TeamServiceInterface::class => TeamService::class
     ];
