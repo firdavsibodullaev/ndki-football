@@ -6,7 +6,11 @@
             <h5 class="card-title">{{ $season->name }}</h5>
         </div>
         <div class="card-body">
-            <p><strong>Годы:</strong> {{ $season->dates }}</p>
+            <p><strong>{{ __('Годы') }}:</strong> {{ $season->dates }}</p>
+            <button class="btn btn-primary"
+                    onclick=""
+            >{{ __('Добавить команды для сезона') }}</button>
         </div>
     </div>
+    <x-modals.season-team-modal :teams="$teams"/>
 @endsection

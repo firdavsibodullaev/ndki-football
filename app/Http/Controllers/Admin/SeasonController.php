@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contracts\Season\SeasonServiceInterface;
+use App\Contracts\Team\TeamServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Season\StoreRequest;
 use App\Http\Requests\Season\UpdateRequest;
@@ -16,7 +17,8 @@ use Illuminate\Http\Request;
 class SeasonController extends Controller
 {
     public function __construct(
-        private readonly SeasonServiceInterface $seasonService
+        private readonly SeasonServiceInterface $seasonService,
+        private readonly TeamServiceInterface   $teamService
     )
     {
     }
@@ -54,7 +56,10 @@ class SeasonController extends Controller
      */
     public function show(Season $season): View|ApplicationAlias|Factory|Application
     {
-        return view('admin.season.show', compact('season'));
+        $season = $season->load('seasonTeams');
+        $teams = $this->teamService->fetchActive();
+
+        return view('admin.season.show', compact('season', 'teams'));
     }
 
     /**

@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->unsignedInteger('team_2_goals')->default(0);
             $table->timestamps();
 
-            $table->index('season_id', 'team_1', 'team_2');
+            $table->unique(['season_id', 'team_1', 'team_2']);
         });
     }
 

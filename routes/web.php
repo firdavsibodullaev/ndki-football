@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\PlayerController;
 use App\Http\Controllers\Admin\SeasonController;
 use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\MatchController;
+use App\Http\Controllers\SeasonTeamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +28,13 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         ->whereNumber('team');
     Route::resource('player', PlayerController::class)
         ->whereNumber('player');
+
+    Route::prefix('season/{season}')->name('season.')->whereNumber('season')->group(function () {
+        Route::prefix('team')->name('match.')->group(function () {
+            Route::post('', [SeasonTeamController::class, 'store'])->name('store');
+        });
+    });
+
     Route::resource('season', SeasonController::class)
         ->whereNumber('season');
 

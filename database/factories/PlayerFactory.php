@@ -20,7 +20,7 @@ class PlayerFactory extends Factory
             'last_name' => $this->faker->lastName,
             'first_name' => $this->faker->firstName('male'),
             'patronymic' => $this->faker->word,
-            'number' => $this->faker->numberBetween(1, 25),
+            'number' => $this->faker->unique()->numberBetween(1, 1000),
             'is_active' => true
         ];
     }

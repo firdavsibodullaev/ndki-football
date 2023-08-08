@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -16,6 +18,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon $updated_at
  * @property-read string $dates
  * @property-read bool $is_current
+ * @property-read Collection $seasonTeams
  */
 class Season extends Model
 {
@@ -31,6 +34,11 @@ class Season extends Model
         'started_at' => 'date',
         'finished_at' => 'date',
     ];
+
+    public function seasonTeams(): HasMany
+    {
+        return $this->hasMany(SeasonTeam::class);
+    }
 
     public function dates(): Attribute
     {
