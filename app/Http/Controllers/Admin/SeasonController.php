@@ -44,17 +44,17 @@ class SeasonController extends Controller
      */
     public function store(StoreRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $this->seasonService->createAndClearCache($request->toDto());
+        $season = $this->seasonService->createAndClearCache($request->toDto());
 
-        return to_route('admin.season.index');
+        return to_route('admin.season.show', $season->id);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Season $season)
+    public function show(Season $season): View|ApplicationAlias|Factory|Application
     {
-        //
+        return view('admin.season.show', compact('season'));
     }
 
     /**
@@ -68,7 +68,7 @@ class SeasonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, Season $season)
+    public function update(UpdateRequest $request, Season $season): \Illuminate\Http\RedirectResponse
     {
         $this->seasonService->updateAndClearCache($season, $request->toDto());
 

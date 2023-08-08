@@ -43,4 +43,11 @@ class Season extends Model
     {
         return Attribute::get(fn() => now()->between($this->started_at, $this->finished_at));
     }
+
+    public function years(): Attribute
+    {
+        $from = $this->started_at->format('Y');
+        $to = $this->finished_at->format('Y');
+        return Attribute::get(fn() => "$from - $to");
+    }
 }
