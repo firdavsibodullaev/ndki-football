@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Contracts\PlayerServiceInterface;
 use App\Contracts\TeamServiceInterface;
+use App\Enums\FromRoute;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Player\FilterRequest;
 use App\Http\Requests\Player\StoreRequest;
@@ -79,7 +80,11 @@ class PlayerController extends Controller
     {
         $this->playerService->updateAndClearCache($player, $request->toDto());
 
-        return to_rroute('admin.player.index');
+        $route = FromRoute::tryFrom($request->query('from', FromRoute::PLAYER_LIST->value))->getRouteName();
+
+        $id = $request->query('id');
+
+        return to_rroute($route->name, [$route->variable => $id]);
     }
 
     /**

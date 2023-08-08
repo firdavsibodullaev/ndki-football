@@ -6,7 +6,7 @@
             <h4 class="card-title">{{ __('Редактирование команды') }}</h4>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.team.update', $team->id) }}"
+            <form action="{{ rroute('admin.team.update', $team->id) }}"
                   method="post"
                   autocomplete="off"
                   enctype="multipart/form-data">

@@ -21,8 +21,11 @@
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
+    <form base-action="{{ $action }}" id="delete-form" method="post">
+        @csrf
+        @method('delete')
+    </form>
 </div>
-<form base-action="{{ $action }}" id="delete-form" method="post">
-    @csrf
-    @method('delete')
-</form>
+@pushonce('js')
+    <script src="{{ asset('assets/dist/js/delete-modal.js') }}"></script>
+@endpushonce

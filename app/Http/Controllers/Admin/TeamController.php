@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contracts\TeamServiceInterface;
+use App\Enums\FromRoute;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Team\StoreRequest;
 use App\Http\Requests\Team\UpdateRequest;
@@ -51,6 +52,7 @@ class TeamController extends Controller
     {
         $this->teamService->updateAndClearCache($team, $request->toDto());
 
-        return to_route('admin.team.index');
+        $route = FromRoute::tryFrom($request->query('from', FromRoute::TEAM_LIST->value))->getRouteName();
+        return to_route($route->name, $team->id);
     }
 }
