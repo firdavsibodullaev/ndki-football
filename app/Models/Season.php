@@ -40,6 +40,11 @@ class Season extends Model
         return $this->hasMany(SeasonTeam::class);
     }
 
+    public function games(): HasMany
+    {
+        return $this->hasMany(Game::class);
+    }
+
     public function dates(): Attribute
     {
         $from = $this->started_at->format('d.m.Y');

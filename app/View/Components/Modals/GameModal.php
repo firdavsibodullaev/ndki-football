@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class SeasonTeamModal extends Component
+class GameModal extends Component
 {
     /**
      * Create a new component instance.
@@ -24,6 +24,6 @@ class SeasonTeamModal extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.modals.season-team-modal');
+        return view('components.modals.game-modal');
     }
 }

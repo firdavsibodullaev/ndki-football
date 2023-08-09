@@ -56,10 +56,9 @@ class SeasonController extends Controller
      */
     public function show(Season $season): View|ApplicationAlias|Factory|Application
     {
-        $season = $season->load('seasonTeams');
-        $teams = $this->teamService->fetchActive();
+        $season = $season->load(['seasonTeams.team', 'games']);
 
-        return view('admin.season.show', compact('season', 'teams'));
+        return view('admin.season.show', compact('season'));
     }
 
     /**

@@ -1,14 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Contracts\SeasonTeam\SeasonTeamServiceInterface;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SeasonTeam\StoreRequest;
 use App\Models\Season;
 use App\Models\SeasonTeam;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SeasonTeamController extends Controller
 {
-    public function __construct()
+    public function __construct(
+        private readonly SeasonTeamServiceInterface $seasonTeamService
+    )
     {
     }
 
@@ -31,11 +37,13 @@ class SeasonTeamController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Season $season)
+    public function store(StoreRequest $request, Season $season): RedirectResponse
     {
         abort_if($season->seasonTeams()->count() > 0, 403);
 
-        //
+        $this->seasonTeamService->create($season, $request->toDto());
+
+        return to_route('admin.season.show', $season->id);
     }
 
     /**
