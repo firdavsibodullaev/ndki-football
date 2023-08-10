@@ -30,15 +30,13 @@ class StoreRequest extends FormRequest
             'started_at' => [
                 'nullable',
                 'date',
-                'date_format:Y-m-d',
-                Rule::unique('seasons', 'started_at')
+                'date_format:Y-m-d'
             ],
             'finished_at' => [
                 'nullable',
                 'date',
                 'date_format:Y-m-d',
-                'after_or_equal:started_at',
-                Rule::unique('seasons', 'started_at')
+                'after_or_equal:started_at'
             ],
             'tournament_id' => ['required', 'int', Rule::exists('tournaments', 'id')]
         ];

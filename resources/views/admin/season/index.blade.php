@@ -16,6 +16,7 @@
                 <tr>
                     <th style="width:1.5rem">ID</th>
                     <th>{{ __('Название') }}</th>
+                    <th>{{ __('Турнир') }}</th>
                     <th>{{ __('Даты') }}</th>
                     <th>{{ __('Текущий сезон') }}</th>
                     <th style="width: 25rem;" class="text-center"></th>
@@ -26,6 +27,7 @@
                     <tr>
                         <td>{{ $season->id }}</td>
                         <td>{{ $season->name }}</td>
+                        <td>{{ $season->tournament->name }}</td>
                         <td>{{ $season->dates }}</td>
                         <td>{!! is_active($season->is_current) !!}</td>
                         <td style="width: 25rem;" class="text-center">

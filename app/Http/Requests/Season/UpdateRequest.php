@@ -26,22 +26,18 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        /** @var Season $season */
-        $season = $this->route('season');
         return [
             'name' => 'required|string|max:100',
             'started_at' => [
                 'required',
                 'date',
-                'date_format:Y-m-d',
-                Rule::unique('seasons', 'started_at')->ignoreModel($season)
+                'date_format:Y-m-d'
             ],
             'finished_at' => [
                 'required',
                 'date',
                 'date_format:Y-m-d',
-                'after_or_equal:started_at',
-                Rule::unique('seasons', 'started_at')->ignoreModel($season)
+                'after_or_equal:started_at'
             ],
             'tournament_id' => ['required', 'int', Rule::exists('tournaments', 'id')]
         ];
