@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Contracts\Season\SeasonRepositoryInterface;
+use App\DTOs\Season\OrderParameterDTO;
 use App\DTOs\Season\SeasonDTO;
 use App\DTOs\Season\SeasonParametersDTO;
 use App\Models\Season;
@@ -16,7 +17,11 @@ class SeasonRepository implements SeasonRepositoryInterface
         return Season::query()
             ->when(
                 value: $parameters->order_by,
-                callback: fn(Builder $builder) => $builder->orderBy($parameters->order_by->column, $parameters->order_by->direction)
+                callback: fn(Builder $builder, OrderParameterDTO $order_by) => $builder->orderBy($order_by->column, $order_by->direction)
+            )
+            ->when(
+                value: $parameters->relations,
+                callback: fn(Builder $builder, array $relations) => $builder->with($relations)
             )
             ->get();
     }

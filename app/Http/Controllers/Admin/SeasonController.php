@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Contracts\Season\SeasonServiceInterface;
 use App\Contracts\Tournament\TournamentServiceInterface;
+use App\DTOs\Season\OrderParameterDTO;
+use App\DTOs\Season\SeasonParametersDTO;
 use App\Enums\FromRoute;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Season\StoreRequest;
@@ -26,7 +28,15 @@ class SeasonController extends Controller
      */
     public function index(): View
     {
-        $seasons = $this->seasonService->getListLastFirstWithCache();
+        $seasons = $this->seasonService->getListLastFirstWithCache(
+            filter: SeasonParametersDTO::make(
+                order_by: OrderParameterDTO::make(
+                    column: 'started_at',
+                    direction: 'desc'
+                ),
+                relations: ['tournament']
+            )
+        );
 
         return view('admin.season.index', compact('seasons'));
     }

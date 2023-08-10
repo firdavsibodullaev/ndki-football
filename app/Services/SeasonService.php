@@ -20,14 +20,8 @@ class SeasonService implements SeasonServiceInterface
     {
     }
 
-    public function getListLastFirstWithCache(): Collection
+    public function getListLastFirstWithCache(SeasonParametersDTO $filter): Collection
     {
-        $filter = SeasonParametersDTO::make(
-            order_by: OrderParameterDTO::make(
-                column: 'started_at',
-                direction: 'desc')
-        );
-
         return Cache::tags(CacheKeys::SEASON->value)
             ->remember(
                 key: CacheKeys::SEASON->key($filter),
