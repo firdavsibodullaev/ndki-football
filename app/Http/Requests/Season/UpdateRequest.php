@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Season;
 
 use App\DTOs\Season\SeasonDTO;
+use App\Models\Season;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
@@ -25,21 +26,24 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        /** @var Season $season */
+        $season = $this->route('season');
         return [
             'name' => 'required|string|max:100',
             'started_at' => [
                 'required',
                 'date',
                 'date_format:Y-m-d',
-                Rule::unique('seasons', 'started_at')->ignoreModel($this->route('season'))
+                Rule::unique('seasons', 'started_at')->ignoreModel($season)
             ],
             'finished_at' => [
                 'required',
                 'date',
                 'date_format:Y-m-d',
                 'after_or_equal:started_at',
-                Rule::unique('seasons', 'started_at')->ignoreModel($this->route('season'))
-            ]
+                Rule::unique('seasons', 'started_at')->ignoreModel($season)
+            ],
+            'tournament_id' => ['required', 'int', Rule::exists('tournaments', 'id')]
         ];
     }
 

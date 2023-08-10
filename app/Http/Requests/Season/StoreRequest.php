@@ -39,7 +39,8 @@ class StoreRequest extends FormRequest
                 'date_format:Y-m-d',
                 'after_or_equal:started_at',
                 Rule::unique('seasons', 'started_at')
-            ]
+            ],
+            'tournament_id' => ['required', 'int', Rule::exists('tournaments', 'id')]
         ];
     }
 
