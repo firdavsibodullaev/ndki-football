@@ -10,14 +10,15 @@ use Illuminate\Support\Carbon;
 /**
  * @property-read int $id
  * @property int $season_id
- * @property int $team_1
- * @property int $team_2
+ * @property int $home_id
+ * @property int $away_id
  * @property Carbon $game_at
- * @property int $team_1_goals
- * @property int $team_2_goals
+ * @property int $round
+ * @property int $home_goals
+ * @property int $away_goals
  * @property-read Season $season
- * @property-read Team $team1
- * @property-read Team $team2
+ * @property-read Team $home
+ * @property-read Team $away
  */
 class Game extends Model
 {
@@ -25,11 +26,12 @@ class Game extends Model
 
     protected $fillable = [
         'season_id',
-        'team_1',
-        'team_2',
+        'home_id',
+        'away_id',
         'game_at',
-        'team_1_goals',
-        'team_2_goals'
+        'round',
+        'home_goals',
+        'away_goals'
     ];
 
     protected $casts = [
@@ -41,13 +43,13 @@ class Game extends Model
         return $this->belongsTo(Season::class);
     }
 
-    public function team1(): BelongsTo
+    public function home(): BelongsTo
     {
-        return $this->belongsTo(Team::class, 'team_1');
+        return $this->belongsTo(Team::class, 'home_id');
     }
 
-    public function team2(): BelongsTo
+    public function away(): BelongsTo
     {
-        return $this->belongsTo(Team::class, 'team_2');
+        return $this->belongsTo(Team::class, 'away_id');
     }
 }

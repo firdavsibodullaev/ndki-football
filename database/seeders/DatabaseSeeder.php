@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->callOnce(SeasonSeeder::class);
+        $this->callOnce(TournamentSeeder::class);
         $this->callOnce(TeamSeeder::class);
     }
 }

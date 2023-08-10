@@ -13,14 +13,15 @@ return new class extends Migration {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->foreignId('season_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('team_1')->constrained('teams')->cascadeOnDelete();
-            $table->foreignId('team_2')->constrained('teams')->cascadeOnDelete();
+            $table->foreignId('home_id')->constrained('teams')->cascadeOnDelete();
+            $table->foreignId('away_id')->constrained('teams')->cascadeOnDelete();
             $table->timestamp('game_at')->nullable();
-            $table->unsignedInteger('team_1_goals')->default(0);
-            $table->unsignedInteger('team_2_goals')->default(0);
+            $table->integer('round');
+            $table->unsignedInteger('home_goals')->default(0);
+            $table->unsignedInteger('away_goals')->default(0);
             $table->timestamps();
 
-            $table->unique(['season_id', 'team_1', 'team_2']);
+            $table->unique(['season_id', 'home_id', 'away_id']);
         });
     }
 
