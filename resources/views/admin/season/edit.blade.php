@@ -33,8 +33,7 @@
                                    name="started_at"
                                    id="started_at"
                                    class="form-control @error('started_at') is-invalid @enderror"
-                                   value="{{ $season->started_at->format('Y-m-d') }}"
-                                   required>
+                                   value="{{ $season->started_at?->format('Y-m-d') }}">
                             @error('started_at')
                             <span id="started_at-error"
                                   class="error invalid-feedback">{{ $message }}</span>
@@ -48,8 +47,7 @@
                                    name="finished_at"
                                    id="finished_at"
                                    class="form-control @error('finished_at') is-invalid @enderror"
-                                   value="{{ $season->finished_at->format('Y-m-d') }}"
-                                   required>
+                                   value="{{ $season->finished_at?->format('Y-m-d') }}">
                             @error('finished_at')
                             <span id="finished_at-error"
                                   class="error invalid-feedback">{{ $message }}</span>
@@ -58,9 +56,36 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="tournament_id">{{ __('Турнир') }}</label>
+                    <select name="tournament_id"
+                            class="select2 w-100 @error('tournament_id') is-invalid @enderror"
+                            id="tournament_id"
+                            data-placeholder="{{ __('Выберите турнир') }}"
+                            required>
+                        <option value=""></option>
+                        @foreach($tournaments as $tournament)
+                            <option @selected($tournament->id == $season->tournament_id)
+                                    value="{{ $tournament->id }}"
+                            >{{ $tournament->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('tournament_id')
+                    <span id="tournament_id-error"
+                          class="error invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
                     <button type="submit" class="btn btn-primary">{{ __('Сохранить') }}</button>
                 </div>
             </form>
         </div>
     </div>
 @endsection
+@push('css')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+@endpush
+@push('js')
+    <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/dist/js/app.js') }}"></script>
+@endpush

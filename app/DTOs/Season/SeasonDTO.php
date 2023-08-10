@@ -9,8 +9,8 @@ class SeasonDTO extends BaseDTO
 {
     public function __construct(
         public readonly string $name,
-        public readonly Carbon $started_at,
-        public readonly Carbon $finished_at
+        public readonly ?Carbon $started_at = null,
+        public readonly ?Carbon $finished_at = null
     )
     {
     }

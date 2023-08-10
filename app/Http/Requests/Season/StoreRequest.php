@@ -28,13 +28,13 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required|string|max:100',
             'started_at' => [
-                'required',
+                'nullable',
                 'date',
                 'date_format:Y-m-d',
                 Rule::unique('seasons', 'started_at')
             ],
             'finished_at' => [
-                'required',
+                'nullable',
                 'date',
                 'date_format:Y-m-d',
                 'after_or_equal:started_at',
@@ -46,8 +46,12 @@ class StoreRequest extends FormRequest
     public function toDto(): SeasonDTO
     {
         $payload = $this->validated();
-        $payload['started_at'] = Carbon::createFromFormat('Y-m-d', $payload['started_at'])->startOfDay();
-        $payload['finished_at'] = Carbon::createFromFormat('Y-m-d', $payload['finished_at'])->endOfDay();
+        $payload['started_at'] = $payload['started_at']
+            ? Carbon::createFromFormat('Y-m-d', $payload['started_at'])->startOfDay()
+            : null;
+        $payload['finished_at'] = $payload['finished_at']
+            ? Carbon::createFromFormat('Y-m-d', $payload['finished_at'])->endOfDay()
+            : null;
 
         return new SeasonDTO(...$payload);
     }

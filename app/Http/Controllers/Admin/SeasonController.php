@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contracts\Season\SeasonServiceInterface;
+use App\Contracts\Tournament\TournamentServiceInterface;
 use App\Enums\FromRoute;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Season\StoreRequest;
@@ -14,7 +15,8 @@ use Illuminate\Http\RedirectResponse;
 class SeasonController extends Controller
 {
     public function __construct(
-        private readonly SeasonServiceInterface $seasonService
+        private readonly SeasonServiceInterface     $seasonService,
+        private readonly TournamentServiceInterface $tournamentService
     )
     {
     }
@@ -34,7 +36,9 @@ class SeasonController extends Controller
      */
     public function create(): View
     {
-        return view('admin.season.create');
+        return view('admin.season.create', [
+            'tournaments' => $this->tournamentService->getWithCache()
+        ]);
     }
 
     /**
@@ -62,7 +66,10 @@ class SeasonController extends Controller
      */
     public function edit(Season $season): View
     {
-        return view('admin.season.edit', compact('season'));
+        return view('admin.season.edit', [
+            'season' => $season,
+            'tournaments' => $this->tournamentService->getWithCache()
+        ]);
     }
 
     /**
