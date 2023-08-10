@@ -14,7 +14,7 @@ class TournamentSeeder extends Seeder
      */
     public function run(): void
     {
-        Tournament::factory()
+        Tournament::factory(2)
             ->has(Season::factory(2), 'seasons')
             ->create();
     }

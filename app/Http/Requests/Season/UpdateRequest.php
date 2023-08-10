@@ -37,7 +37,7 @@ class UpdateRequest extends FormRequest
                 'required',
                 'date',
                 'date_format:Y-m-d',
-                'after:started_at',
+                'after_or_equal:started_at',
                 Rule::unique('seasons', 'started_at')->ignoreModel($this->route('season'))
             ]
         ];

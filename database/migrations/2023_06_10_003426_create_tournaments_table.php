@@ -1,6 +1,6 @@
 <?php
 
-use App\DTOs\Tournament\TournamentType;
+use App\Enums\TournamentType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

@@ -10,5 +10,6 @@ enum CacheKeys: string
 
     case TEAM = 'team';
     case PLAYER = 'player';
-
+    case SEASON = 'season';
+    case TOURNAMENT = 'tournament';
 }

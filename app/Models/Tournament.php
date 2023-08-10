@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\DTOs\Tournament\TournamentType;
+use App\Enums\TournamentType;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,6 +26,7 @@ class Tournament extends Model
     ];
 
     protected $casts = [
+        'is_home_away' => 'boolean',
         'type' => TournamentType::class
     ];
 

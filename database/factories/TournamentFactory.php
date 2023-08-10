@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
-use App\DTOs\Tournament\TournamentType;
+use App\Enums\TournamentType;
+use App\Models\Tournament;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tournament>
+ * @extends Factory<Tournament>
  */
 class TournamentFactory extends Factory
 {

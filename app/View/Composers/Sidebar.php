@@ -57,6 +57,11 @@ class Sidebar
                         title: __('Игроки'),
                         path: route('admin.player.index'),
                         active: $this->routeActive->isPlayerList()
+                    ),
+                    SidebarItem::make(
+                        title: __('Турниры'),
+                        path: route('admin.tournament.index'),
+                        active: $this->routeActive->isTournamentList()
                     )
                 ]
             )

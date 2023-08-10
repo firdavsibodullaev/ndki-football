@@ -13,8 +13,8 @@ return new class extends Migration {
         Schema::create('seasons', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->date('started_at')->nullable();
-            $table->date('finished_at')->nullable();
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('finished_at')->nullable();
             $table->foreignId('tournament_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

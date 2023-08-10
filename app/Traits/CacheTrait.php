@@ -30,7 +30,7 @@ trait CacheTrait
             if (is_object($value) || is_array($value)) {
                 $value = $this->key($value);
             }
-            $key_value .= ":$key=$value";
+            $key_value .= "|$key=$value";
         }
 
         return $key_value;

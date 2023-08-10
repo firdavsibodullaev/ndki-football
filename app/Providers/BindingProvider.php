@@ -14,18 +14,22 @@ use App\Contracts\SeasonTeam\SeasonTeamRepositoryInterface;
 use App\Contracts\SeasonTeam\SeasonTeamServiceInterface;
 use App\Contracts\Team\TeamRepositoryInterface;
 use App\Contracts\Team\TeamServiceInterface;
+use App\Contracts\Tournament\TournamentRepositoryInterface;
+use App\Contracts\Tournament\TournamentServiceInterface;
 use App\Repositories\GameRepository;
 use App\Repositories\MediaLibraryRepository;
 use App\Repositories\PlayerRepository;
 use App\Repositories\SeasonRepository;
 use App\Repositories\SeasonTeamRepository;
 use App\Repositories\TeamRepository;
+use App\Repositories\TournamentRepository;
 use App\Services\GameService;
 use App\Services\MediaLibraryService;
 use App\Services\PlayerService;
 use App\Services\SeasonService;
 use App\Services\SeasonTeamService;
 use App\Services\TeamService;
+use App\Services\TournamentService;
 use Illuminate\Support\ServiceProvider;
 
 class BindingProvider extends ServiceProvider
@@ -36,7 +40,8 @@ class BindingProvider extends ServiceProvider
         PlayerServiceInterface::class => PlayerService::class,
         SeasonServiceInterface::class => SeasonService::class,
         SeasonTeamServiceInterface::class => SeasonTeamService::class,
-        TeamServiceInterface::class => TeamService::class
+        TeamServiceInterface::class => TeamService::class,
+        TournamentServiceInterface::class => TournamentService::class
     ];
     protected array $repositories = [
         GameRepositoryInterface::class => GameRepository::class,
@@ -44,7 +49,8 @@ class BindingProvider extends ServiceProvider
         PlayerRepositoryInterface::class => PlayerRepository::class,
         SeasonRepositoryInterface::class => SeasonRepository::class,
         SeasonTeamRepositoryInterface::class => SeasonTeamRepository::class,
-        TeamRepositoryInterface::class => TeamRepository::class
+        TeamRepositoryInterface::class => TeamRepository::class,
+        TournamentRepositoryInterface::class => TournamentRepository::class
     ];
 
     /**

@@ -31,8 +31,8 @@ class Season extends Model
     ];
 
     protected $casts = [
-        'started_at' => 'date',
-        'finished_at' => 'date',
+        'started_at' => 'datetime',
+        'finished_at' => 'datetime',
     ];
 
     public function seasonTeams(): HasMany

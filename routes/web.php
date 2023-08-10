@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PlayerController;
 use App\Http\Controllers\Admin\SeasonController;
 use App\Http\Controllers\Admin\SeasonTeamController;
 use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\Admin\TournamentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,10 +26,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('', MainController::class)->name('index');
 
     Route::get('team/list-json', [TeamController::class, 'listJson'])->name('team.list_json');
-    Route::resource('team', TeamController::class)
-        ->whereNumber('team');
-    Route::resource('player', PlayerController::class)
-        ->whereNumber('player');
+
+    Route::resource('team', TeamController::class)->whereNumber('team');
+    Route::resource('player', PlayerController::class)->whereNumber('player');
+    Route::resource('tournament', TournamentController::class)->whereNumber('tournament');
 
     Route::prefix('season/{season}')->name('season.')->whereNumber('season')->group(function () {
         Route::prefix('team')->name('team.')->group(function () {
@@ -39,8 +40,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         });
     });
 
-    Route::resource('season', SeasonController::class)
-        ->whereNumber('season');
+    Route::resource('season', SeasonController::class)->whereNumber('season');
 
 //    Route::prefix('profile')->name('profile.')->group(function () {
 //        Route::get('', [ProfileController::class, 'edit'])->name('edit');

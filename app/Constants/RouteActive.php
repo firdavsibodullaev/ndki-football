@@ -23,7 +23,9 @@ class RouteActive
 
     public function isList(): bool
     {
-        return $this->isTeamList() || $this->isPlayerList();
+        return $this->isTeamList()
+            || $this->isPlayerList()
+            || $this->isTournamentList();
     }
 
     public function isTeamList(): bool
@@ -46,7 +48,17 @@ class RouteActive
         ]);
     }
 
-    public function isMatchesList()
+    public function isTournamentList(): bool
+    {
+        return in_array($this->current(), [
+            'admin.tournament.index',
+            'admin.tournament.create',
+            'admin.tournament.edit',
+            'admin.tournament.show',
+        ]);
+    }
+
+    public function isMatchesList(): bool
     {
         return $this->isSeasonList();
     }

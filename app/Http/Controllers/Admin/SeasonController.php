@@ -3,22 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contracts\Season\SeasonServiceInterface;
-use App\Contracts\Team\TeamServiceInterface;
+use App\Enums\FromRoute;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Season\StoreRequest;
 use App\Http\Requests\Season\UpdateRequest;
 use App\Models\Season;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application as ApplicationAlias;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class SeasonController extends Controller
 {
     public function __construct(
-        private readonly SeasonServiceInterface $seasonService,
-        private readonly TeamServiceInterface   $teamService
+        private readonly SeasonServiceInterface $seasonService
     )
     {
     }
@@ -44,7 +40,7 @@ class SeasonController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
         $season = $this->seasonService->createAndClearCache($request->toDto());
 
@@ -54,7 +50,7 @@ class SeasonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Season $season): View|ApplicationAlias|Factory|Application
+    public function show(Season $season): View
     {
         $season = $season->load(['seasonTeams.team', 'games']);
 
@@ -64,7 +60,7 @@ class SeasonController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Season $season): View|ApplicationAlias|Factory|Application
+    public function edit(Season $season): View
     {
         return view('admin.season.edit', compact('season'));
     }
@@ -72,11 +68,15 @@ class SeasonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, Season $season): \Illuminate\Http\RedirectResponse
+    public function update(UpdateRequest $request, Season $season): RedirectResponse
     {
         $this->seasonService->updateAndClearCache($season, $request->toDto());
 
-        return to_route('admin.season.index');
+        $route = FromRoute::tryFrom($request->query('from', FromRoute::SEASON_LIST->value))->getRouteName();
+
+        $id = $request->query('id');
+
+        return to_rroute($route->name, [$route->variable => $id]);
     }
 
     /**
