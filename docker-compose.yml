@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+    app:
+        container_name: football_app
+        build:
+            context: .
+            dockerfile: docker/app/Dockerfile
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - db
+            - redis
+
+    nginx:
+        container_name: football_nginx
+        image: nginx:alpine
+        ports:
+            - "8001:80"
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d
+        depends_on:
+            - app
+
+    db:
+        container_name: football_db
+        image: mysql:8.0
+        restart: always
+        volumes:
+            - ./tmp/db:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: football
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "8101:3306"
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+
+    redis:
+        container_name: football_redis
+        image: redis:alpine
+        ports:
+            - "6479:6379"
