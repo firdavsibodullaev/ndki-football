@@ -32,7 +32,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('tournament', TournamentController::class)->whereNumber('tournament');
 
     Route::prefix('season/{season}')->name('season.')->whereNumber('season')->group(function () {
+        Route::get('show-json', [SeasonController::class, 'showJson'])->name('show_json');
+
         Route::prefix('team')->name('team.')->group(function () {
+            Route::get('', [SeasonTeamController::class, 'index'])->name('index');
             Route::post('', [SeasonTeamController::class, 'store'])->name('store');
         });
         Route::prefix('game')->name('game.')->group(function () {

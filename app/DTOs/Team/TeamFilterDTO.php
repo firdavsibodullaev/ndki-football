@@ -4,9 +4,13 @@ namespace App\DTOs\Team;
 
 use App\Enums\Team;
 
-class TeamFilterDTO
+readonly class TeamFilterDTO
 {
-    public function __construct(public readonly ?Team $fetch_only = null)
+
+    public function __construct(
+        public ?Team $fetch_only = null,
+        public ?int  $season_id = null
+    )
     {
     }
 }

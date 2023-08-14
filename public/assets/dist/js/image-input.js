@@ -8,7 +8,6 @@ function imagePreview(el) {
     const imgTag = anchorTag.find('img');
 
     if (files.length < 1) {
-console.log(!previewBlock.hasClass('d-none') && !baseFile);
         if (!previewBlock.hasClass('d-none') && !baseFile) {
             previewBlock.addClass('d-none');
         }

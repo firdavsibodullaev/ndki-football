@@ -16,12 +16,22 @@ class TeamRepository implements TeamRepositoryInterface
     {
         return Team::query()
             ->with('logo')
-            ->when($dto->fetch_only?->is(TeamEnum::ONLY_ACTIVE),
-                fn(Builder $builder) => $builder->where('is_active', true)
+            ->when(
+                value: $dto->fetch_only,
+                callback: fn(Builder $builder) => $builder->when(
+                    value: $dto->fetch_only->is(TeamEnum::ONLY_ACTIVE),
+                    callback: fn(Builder $builder) => $builder->where('is_active', true),
+                    default: fn(Builder $builder) => $builder->where('is_active', false)
+                )
             )
-            ->when($dto->fetch_only?->is(TeamEnum::ONLY_INACTIVE),
-                fn(Builder $builder) => $builder->where('is_active', false)
-            )->get();
+            ->when(
+                value: $dto->season_id,
+                callback: fn(Builder $builder) => $builder->whereHas(
+                    relation: 'seasons',
+                    callback: fn(Builder $subBuilder) => $subBuilder->whereKey($dto->season_id)
+                )
+            )
+            ->get();
     }
 
     public function create(TeamDTO $payload): Team

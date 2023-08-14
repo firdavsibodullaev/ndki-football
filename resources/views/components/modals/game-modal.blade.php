@@ -1,4 +1,4 @@
-<div class="modal fade" id="game-modal">
+<div class="modal fade" id="game-modal" data-season-id="{{ $season->id }}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,48 +13,7 @@
                       id="game-store-form"
                       autocomplete="off">
                     @csrf
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="started_at">{{ __('Дата первого матча') }}</label>
-                                <input type="date"
-                                       class="form-control"
-                                       id="started_at"
-                                       name="started_at"
-                                       value="{{ $season->started_at->format('Y-m-d') }}"
-                                       required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="finished_at">{{ __('Дата последнего матча') }}</label>
-                                <input type="date"
-                                       class="form-control"
-                                       id="finished_at"
-                                       name="finished_at"
-                                       value="{{ $season->finished_at->format('Y-m-d') }}"
-                                       required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="days">{{ __('Дни проведения матчей') }}</label>
-                        <select name="days[]"
-                                id="days"
-                                multiple
-                                required
-                                data-placeholder="{{ __('Выберите дни проведения матчей') }}"
-                                class="select2 w-100">
-                            <option value=""></option>
-                            <option value="1">{{ __('Понедельник') }}</option>
-                            <option value="2">{{ __('Вторник') }}</option>
-                            <option value="3">{{ __('Среда') }}</option>
-                            <option value="4">{{ __('Четверг') }}</option>
-                            <option value="5">{{ __('Пятница') }}</option>
-                            <option value="6">{{ __('Суббота') }}</option>
-                            <option value="7">{{ __('Воскресенье') }}</option>
-                        </select>
-                    </div>
+                    <div id="game-store-inputs-block"></div>
                 </form>
             </div>
             <div class="modal-footer justify-content-between">

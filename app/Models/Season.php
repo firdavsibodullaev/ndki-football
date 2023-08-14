@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
 /**
  * @property-read int $id
  * @property string $name
+ * @property int $tournament_id
  * @property Carbon $started_at
  * @property Carbon $finished_at
  * @property Carbon $created_at
@@ -20,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property-read string $dates
  * @property-read bool $is_current
  * @property-read Collection $seasonTeams
+ * @property-read Tournament $tournament
  */
 class Season extends Model
 {
@@ -27,6 +29,7 @@ class Season extends Model
 
     protected $fillable = [
         'name',
+        'tournament_id',
         'started_at',
         'finished_at'
     ];

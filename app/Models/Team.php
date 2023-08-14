@@ -6,6 +6,7 @@ use App\Enums\MediaCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Carbon;
@@ -40,5 +41,11 @@ class Team extends Model implements HasMedia
     public function players(): HasMany
     {
         return $this->hasMany(Player::class);
+    }
+
+    public function seasons(): BelongsToMany
+    {
+        return $this->belongsToMany(Season::class, 'season_teams')
+            ->withPivot(['points', 'goal_scored', 'goals_conceded']);
     }
 }

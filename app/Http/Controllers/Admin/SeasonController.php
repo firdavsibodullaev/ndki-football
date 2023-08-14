@@ -10,6 +10,7 @@ use App\Enums\FromRoute;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Season\StoreRequest;
 use App\Http\Requests\Season\UpdateRequest;
+use App\Http\Resources\SeasonResource;
 use App\Models\Season;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -69,6 +70,13 @@ class SeasonController extends Controller
         $season = $season->load(['seasonTeams.team', 'games']);
 
         return view('admin.season.show', compact('season'));
+    }
+
+    public function showJson(Season $season): SeasonResource
+    {
+        $season = $season->load(['tournament', 'seasonTeams.team']);
+
+        return SeasonResource::make($season);
     }
 
     /**

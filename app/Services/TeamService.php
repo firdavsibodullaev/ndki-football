@@ -15,22 +15,22 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
-class TeamService implements TeamServiceInterface
+readonly class TeamService implements TeamServiceInterface
 {
     public function __construct(
-        private readonly MediaLibraryServiceInterface $libraryService,
-        private readonly TeamRepositoryInterface      $teamRepository
+        private MediaLibraryServiceInterface $libraryService,
+        private TeamRepositoryInterface      $teamRepository
     )
     {
     }
 
-    public function fetchAll(): Collection
+    public function fetchAll(TeamFilterDTO $filter = new TeamFilterDTO()): Collection
     {
         return Cache::tags(CacheKeys::TEAM->value)
             ->remember(
-                key: CacheKeys::TEAM->value,
+                key: CacheKeys::TEAM->key($filter),
                 ttl: CacheKeys::ttl(),
-                callback: fn() => $this->teamRepository->fetch()
+                callback: fn() => $this->teamRepository->fetch($filter)
             );
     }
 

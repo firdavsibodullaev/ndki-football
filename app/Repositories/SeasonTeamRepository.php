@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Contracts\SeasonTeam\SeasonTeamRepositoryInterface;
 use App\DTOs\SeasonTeam\SeasonTeamDTO;
 use App\Models\Season;
+use Illuminate\Database\Eloquent\Collection;
 
 class SeasonTeamRepository implements SeasonTeamRepositoryInterface
 {

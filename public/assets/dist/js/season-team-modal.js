@@ -5,19 +5,20 @@ const SeasonTeam = {
         this.getActiveTeams();
     },
     getActiveTeams() {
-        if (this.activeTeams.length === 0) {
-            let teams = [];
-            $.ajax({
-                url: `${location.origin}/admin/team/list-json`,
-                method: 'get',
-                async: false,
-                success(response) {
-                    teams = response.data;
-                }
-            });
-            this.activeTeams = teams;
-            teams = [];
+        let teams = [];
+        if (this.activeTeams.length > 0) {
+            return
         }
+        $.ajax({
+            url: `${location.origin}/admin/team/list-json`,
+            method: 'get',
+            async: false,
+            success(response) {
+                teams = response.data;
+            }
+        });
+        this.activeTeams = teams;
+        teams = [];
     },
     openModal() {
         this.getActiveTeams();
