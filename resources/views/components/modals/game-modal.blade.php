@@ -13,6 +13,7 @@
                       id="game-store-form"
                       autocomplete="off">
                     @csrf
+                    <div id="game-store-round-select-block"></div>
                     <div id="game-store-inputs-block"></div>
                 </form>
             </div>

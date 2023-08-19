@@ -29,4 +29,3 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 
 WORKDIR /var/www
 
-RUN php artisan storage:link

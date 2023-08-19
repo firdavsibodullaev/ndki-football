@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'teams' => 'required|array',
+            'teams' => 'required|array|array_length:even',
             'teams.*' => ['required', 'int', Rule::exists('teams', 'id')]
         ];
     }

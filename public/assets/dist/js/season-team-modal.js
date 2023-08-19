@@ -94,6 +94,16 @@ const SeasonTeam = {
     isAllChecked() {
         const hasNotCheckedCheckbox = $('input.team-checkbox:not(:checked)').length > 0;
         $('#season-team-modal-all-selected').prop('checked', !hasNotCheckedCheckbox);
+    },
+    submitForm(el) {
+        const $this = $(el);
+        const checkbox = $this.find('input.team-checkbox:checked');
+
+        if(checkbox.length % 2 !== 0) {
+            return toastr.error('Количество команд должно быть чётным');
+        }
+
+        $this.submit();
     }
 }
 

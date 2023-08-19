@@ -38,7 +38,7 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Закрыть') }}</button>
                 <button type="button"
                         class="btn btn-primary"
-                        onclick="document.querySelector('#season-team-form').submit()">
+                        onclick="SeasonTeam.submitForm('#season-team-form')">
                     {{ __('Добавить') }}
                 </button>
             </div>
@@ -49,9 +49,11 @@
 </div>
 @pushonce('css')
     <link rel="stylesheet" href="{{ asset('assets/plugins/fancybox/fancybox.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 @endpushonce
 @pushonce('js')
+    <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/fancybox/fancybox.js') }}"></script>
     <script src="{{ asset('assets/dist/js/season-team-modal.js') }}"></script>
 @endpushonce

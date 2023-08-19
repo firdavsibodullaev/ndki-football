@@ -16,7 +16,7 @@ services:
         container_name: football_nginx
         image: nginx:alpine
         ports:
-            - "8001:80"
+            - "8010:80"
         volumes:
             - ./:/var/www
             - ./docker/nginx/conf.d:/etc/nginx/conf.d
@@ -26,7 +26,7 @@ services:
     db:
         container_name: football_db
         image: mysql:8.0
-        restart: always
+        restart: unless-stopped
         volumes:
             - ./tmp/db:/var/lib/mysql
         environment:
