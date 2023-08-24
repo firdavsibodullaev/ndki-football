@@ -8,8 +8,8 @@ use Illuminate\Support\Collection;
 
 class GameRepository implements GameRepositoryInterface
 {
-    public function create(Collection $games): bool
+    public function insert(array $items): bool
     {
-        return Game::query()->insert($games->toArray());
+        return Game::query()->insert($items);
     }
 }

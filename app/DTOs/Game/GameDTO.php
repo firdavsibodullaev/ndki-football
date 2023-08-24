@@ -2,14 +2,17 @@
 
 namespace App\DTOs\Game;
 
+use App\DTOs\BaseDTO;
 use Illuminate\Support\Carbon;
 
-class GameDTO
+readonly class GameDTO extends BaseDTO
 {
     public function __construct(
-        public readonly Carbon $started_at,
-        public readonly Carbon $finished_at,
-        public readonly array  $days
+        public int     $season_id,
+        public int    $away_id,
+        public int    $home_id,
+        public Carbon $game_at,
+        public int    $round,
     )
     {
     }

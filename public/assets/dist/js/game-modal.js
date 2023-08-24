@@ -4,6 +4,7 @@ const Game = {
     rounds: 0,
     gamesNumberByRound: 0,
     modal: $('#game-modal'),
+    form: $('#game-store-form'),
     seasonId: null,
     seasonConfig: {},
     handleSelectEvent: false,
@@ -45,7 +46,7 @@ const Game = {
         const select = this.renderRoundsSelect();
 
         this.modal.find('#game-store-round-select-block').html(select);
-        const inputBlock = this.modal.find('#game-store-inputs-block');
+        const inputBlock = this.modal.find('#game-store-selects-block');
         inputBlock.html('');
 
         initSelect2();
@@ -82,19 +83,17 @@ const Game = {
         const $this = $(el);
         const roundNumber = +$this.val();
         const round = this.getRound(roundNumber);
-        const inputBlock = this.modal.find('#game-store-inputs-block');
+        const inputBlock = this.modal.find('#game-store-selects-block');
         inputBlock.html('');
         for (let i = 0; i < this.gamesNumberByRound; i++) {
             let game = round.games[i];
             let row = $('<div>', {class: 'row'});
-            let index = this.gamesNumberByRound * (roundNumber - 1) + i;
 
             let col41 = $('<div>', {class: 'col-4'});
             let homeSelectBlock = $('<div>', {class: 'form-group'});
             let homeSelectLabel = $('<label>', {for: `home-select-${roundNumber}-${i}`, text: 'Команда'});
             let homeSelect = $('<select>', {
                 onchange: `Game.addTeamToGamesByRoundList(this, ${roundNumber}, ${i}, 'home')`,
-                name: `game[${index}][home]`,
                 class: `select2 w-100 round-${roundNumber}-team-select`,
                 'data-placeholder': 'Выберите команду',
                 id: `home-select-${roundNumber}-${i}`
@@ -107,9 +106,8 @@ const Game = {
                 onchange: `Game.addDateToGamesByRoundList(this, ${roundNumber}, ${i})`,
                 id: `date-input-${roundNumber}-${i}`,
                 class: 'form-control',
-                type: 'date',
+                type: 'datetime-local',
                 value: game?.date,
-                name: `game[${index}][date]`
             });
 
             let col42 = $('<div>', {class: 'col-4'});
@@ -117,16 +115,9 @@ const Game = {
             let awaySelectLabel = $('<label>', {for: `away-select-${roundNumber}-${i}`, text: 'Команда'});
             let awaySelect = $('<select>', {
                 onchange: `Game.addTeamToGamesByRoundList(this, ${roundNumber}, ${i}, 'away')`,
-                name: `game[${index}][away]`,
                 class: `select2 w-100 round-${roundNumber}-team-select`,
                 'data-placeholder': 'Выберите команду',
                 id: `away-select-${roundNumber}-${i}`
-            });
-
-            let roundInput = $('<input>', {
-                type: 'hidden',
-                name: `game[${index}][round]`,
-                value: roundNumber
             });
 
             this.setTeamOptions(homeSelect, game?.home);
@@ -134,7 +125,7 @@ const Game = {
             col41.append(homeSelectBlock.append(homeSelectLabel).append(homeSelect));
             col4.append(dateBlock.append(dateLabel).append(dateInput));
             col42.append(awaySelectBlock.append(awaySelectLabel).append(awaySelect));
-            row.append(col41).append(col4).append(col42).append(roundInput);
+            row.append(col41).append(col4).append(col42);
             inputBlock.append(row);
         }
         initSelect2();
@@ -186,8 +177,6 @@ const Game = {
         } else {
             this.gamesByRound[round - 1].games[gameNumber].date = date;
         }
-
-        console.log(this.gamesByRound);
     },
     getRound(round) {
         let gamesOfRound = this.gamesByRound.filter((game) => game.round === round);
@@ -209,6 +198,39 @@ const Game = {
         select.next().addClass('border-success border');
         option.parent().next().removeClass('border-success border');
         this.handleSelectEvent = false;
+    },
+    submitForm() {
+        let inputsBlock = $("<div>");
+        console.log(this.gamesByRound);
+        for (let i = 0; i < this.gamesByRound.length; i++) {
+            let roundGame = this.gamesByRound[i];
+            for (let j = 0; j < roundGame.games.length; j++) {
+                let game = roundGame.games[j];
+                let home = $("<input>", {
+                    type: 'hidden',
+                    name: `game[${i}][${j}][home]`,
+                    value: game.home.id
+                });
+                let away = $("<input>", {
+                    type: 'hidden',
+                    name: `game[${i}][${j}][away]`,
+                    value: game.away.id
+                });
+                let date = $("<input>", {
+                    type: 'hidden',
+                    name: `game[${i}][${j}][date]`,
+                    value: game.date
+                });
+                let round = $("<input>", {
+                    type: 'hidden',
+                    name: `game[${i}][${j}][round]`,
+                    value: roundGame.round
+                });
+                inputsBlock.append(home).append(away).append(date).append(round);
+            }
+        }
+        $('#game-store-inputs-block').html(inputsBlock);
+        this.form.submit();
     }
 }
 

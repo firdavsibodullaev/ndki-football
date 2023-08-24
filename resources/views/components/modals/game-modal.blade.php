@@ -1,3 +1,6 @@
+@if($errors->any())
+    @dump($errors->all())
+@endif
 <div class="modal fade" id="game-modal" data-season-id="{{ $season->id }}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -14,6 +17,7 @@
                       autocomplete="off">
                     @csrf
                     <div id="game-store-round-select-block"></div>
+                    <div id="game-store-selects-block"></div>
                     <div id="game-store-inputs-block"></div>
                 </form>
             </div>
@@ -21,7 +25,7 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Закрыть') }}</button>
                 <button type="button"
                         class="btn btn-primary"
-                        onclick="document.querySelector('#game-store-form').submit()">
+                        onclick="Game.submitForm()">
                     {{ __('Сохранить') }}
                 </button>
             </div>
