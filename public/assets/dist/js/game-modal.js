@@ -6,6 +6,7 @@ const Game = {
     modal: $('#game-modal'),
     seasonId: null,
     seasonConfig: {},
+    handleSelectEvent: false,
     setup() {
         this.seasonId = this.modal.attr('data-season-id');
         this.getSeasonInfo();
@@ -41,7 +42,7 @@ const Game = {
             this.getSeasonInfo();
         }
 
-        const select = this.renderSelect();
+        const select = this.renderRoundsSelect();
 
         this.modal.find('#game-store-round-select-block').html(select);
         const inputBlock = this.modal.find('#game-store-inputs-block');
@@ -49,7 +50,7 @@ const Game = {
 
         initSelect2();
     },
-    renderSelect() {
+    renderRoundsSelect() {
         const block = $('<div>', {
             class: 'form-group'
         });
@@ -70,7 +71,7 @@ const Game = {
             select.append(
                 $('<option>', {
                     value: i + 1,
-                    text: i + 1
+                    text: `${i + 1} - тур`
                 })
             );
         }
@@ -94,7 +95,7 @@ const Game = {
             let homeSelect = $('<select>', {
                 onchange: `Game.addTeamToGamesByRoundList(this, ${roundNumber}, ${i}, 'home')`,
                 name: `game[${index}][home]`,
-                class: 'select2 w-100',
+                class: `select2 w-100 round-${roundNumber}-team-select`,
                 'data-placeholder': 'Выберите команду',
                 id: `home-select-${roundNumber}-${i}`
             });
@@ -117,20 +118,32 @@ const Game = {
             let awaySelect = $('<select>', {
                 onchange: `Game.addTeamToGamesByRoundList(this, ${roundNumber}, ${i}, 'away')`,
                 name: `game[${index}][away]`,
-                class: 'select2 w-100',
+                class: `select2 w-100 round-${roundNumber}-team-select`,
                 'data-placeholder': 'Выберите команду',
                 id: `away-select-${roundNumber}-${i}`
             });
+
+            let roundInput = $('<input>', {
+                type: 'hidden',
+                name: `game[${index}][round]`,
+                value: roundNumber
+            });
+
             this.setTeamOptions(homeSelect, game?.home);
             this.setTeamOptions(awaySelect, game?.away);
             col41.append(homeSelectBlock.append(homeSelectLabel).append(homeSelect));
             col4.append(dateBlock.append(dateLabel).append(dateInput));
             col42.append(awaySelectBlock.append(awaySelectLabel).append(awaySelect));
-            row.append(col41).append(col4).append(col42);
+            row.append(col41).append(col4).append(col42).append(roundInput);
             inputBlock.append(row);
-
-            initSelect2();
         }
+        initSelect2();
+
+        $(`.round-${roundNumber}-team-select option`)
+            .filter((index, option) => option.hasAttribute('selected'))
+            .parent()
+            .next()
+            .addClass('border border-success');
     },
     setTeamOptions(select, selectedTeam) {
         select.append($('<option>'));
@@ -145,10 +158,15 @@ const Game = {
         }
     },
     addTeamToGamesByRoundList(el, round, gameNumber, key) {
+        if (this.handleSelectEvent) return;
         const $this = $(el);
         const id = +$this.val();
+        if (id === 0) return;
+
         let team = this.teams.filter((team) => team.id === id)[0];
         let gameOfRound = this.gamesByRound[round - 1].games[gameNumber];
+
+        this.removeTeamFromOtherSelect($this, team, round);
 
         if (gameOfRound === undefined) {
             this.gamesByRound[round - 1].games.push({
@@ -157,6 +175,19 @@ const Game = {
         } else {
             this.gamesByRound[round - 1].games[gameNumber][key] = team;
         }
+
+    },
+    addDateToGamesByRoundList(el, round, gameNumber) {
+        const $this = $(el);
+        const date = $this.val();
+        let gameOfRound = this.gamesByRound[round - 1].games[gameNumber];
+        if (gameOfRound === undefined) {
+            this.gamesByRound[round - 1].games.push({date});
+        } else {
+            this.gamesByRound[round - 1].games[gameNumber].date = date;
+        }
+
+        console.log(this.gamesByRound);
     },
     getRound(round) {
         let gamesOfRound = this.gamesByRound.filter((game) => game.round === round);
@@ -168,6 +199,16 @@ const Game = {
         }
 
         return gamesOfRound;
+    },
+    removeTeamFromOtherSelect(select, team, round) {
+        this.handleSelectEvent = true;
+        let selects = $(`.round-${round}-team-select`).not(select);
+        let option = selects.find(`option:selected`)
+            .filter((index, option) => +option.getAttribute('value') === team.id);
+        option.prop('selected', false).change();
+        select.next().addClass('border-success border');
+        option.parent().next().removeClass('border-success border');
+        this.handleSelectEvent = false;
     }
 }
 

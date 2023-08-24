@@ -6,6 +6,7 @@ use App\DTOs\Game\GameDTO;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -24,11 +25,22 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $season = $this->route('season');
         return [
-            'started_at' => 'required|date|date_format:Y-m-d',
-            'finished_at' => 'required|date|date_format:Y-m-d',
-            'days' => 'required|array',
-            'days.*' => 'required|int|min:1|max:7'
+            'game' => 'required|array',
+            'game.*' => 'required|array',
+            'game.*.home' => [
+                'required',
+                'integer',
+                Rule::exists('season_teams', 'id')->where('season_id', $season->id)
+            ],
+            'game.*.date' => 'required|string|date|date_format:Y-m-d',
+            'game.*.away' => [
+                'required',
+                'integer',
+                Rule::exists('season_teams', 'id')->where('season_id', $season->id)
+            ],
+            'game.*.round' => 'required|integer',
         ];
     }
 
