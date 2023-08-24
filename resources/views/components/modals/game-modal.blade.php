@@ -1,6 +1,3 @@
-@if($errors->any())
-    @dump($errors->all())
-@endif
 <div class="modal fade" id="game-modal" data-season-id="{{ $season->id }}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -43,4 +40,9 @@
     <script src="{{ asset('assets/dist/js/game-modal.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('assets/dist/js/app.js') }}"></script>
+    @if($errors->any())
+        <script>
+            Game.ids = @json(old('game'));
+        </script>
+    @endif
 @endpushonce

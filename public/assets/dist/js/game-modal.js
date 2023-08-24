@@ -1,6 +1,7 @@
 const Game = {
     teams: [],
     gamesByRound: [],
+    ids: [],
     rounds: 0,
     gamesNumberByRound: 0,
     modal: $('#game-modal'),
@@ -11,6 +12,7 @@ const Game = {
     setup() {
         this.seasonId = this.modal.attr('data-season-id');
         this.getSeasonInfo();
+        this.putValuesFromIds();
     },
     openModal() {
         this.getSeasonInfo();
@@ -150,6 +152,7 @@ const Game = {
     },
     addTeamToGamesByRoundList(el, round, gameNumber, key) {
         if (this.handleSelectEvent) return;
+        console.log(this.gamesByRound);
         const $this = $(el);
         const id = +$this.val();
         if (id === 0) return;
@@ -178,16 +181,20 @@ const Game = {
             this.gamesByRound[round - 1].games[gameNumber].date = date;
         }
     },
-    getRound(round) {
-        let gamesOfRound = this.gamesByRound.filter((game) => game.round === round);
-        if (gamesOfRound.length === 0) {
-            gamesOfRound = {round: round, games: []};
-            this.gamesByRound.push(gamesOfRound);
-        } else {
-            gamesOfRound = gamesOfRound[0];
+    getRound(roundNumber) {
+        if (this.gamesByRound.length === 0) {
+            for (let i = 0; i < this.rounds; i++) {
+                let gamesOfRound = [];
+
+                for (let j = 0; j < this.gamesNumberByRound; j++) {
+                    gamesOfRound.push({});
+                }
+
+                this.gamesByRound.push({round: i + 1, games: gamesOfRound});
+            }
         }
 
-        return gamesOfRound;
+        return this.gamesByRound.filter((game) => game.round === roundNumber)[0];
     },
     removeTeamFromOtherSelect(select, team, round) {
         this.handleSelectEvent = true;
@@ -199,9 +206,24 @@ const Game = {
         option.parent().next().removeClass('border-success border');
         this.handleSelectEvent = false;
     },
+    putValuesFromIds() {
+        for (let i = 0; i < this.ids.length; i++) {
+            let failedRound = this.ids[i];
+            let round = i + 1;
+            let games = [];
+            for (let j = 0; j < failedRound.length; j++) {
+                let failedGame = failedRound[j];
+                let home = this.teams.filter((team) => team.id === +failedGame.home)[0] ?? null;
+                let away = this.teams.filter((team) => team.id === +failedGame.away)[0] ?? null;
+                let date = failedGame.date;
+                games.push({away, date, home});
+            }
+
+            this.gamesByRound.push({round, games});
+        }
+    },
     submitForm() {
         let inputsBlock = $("<div>");
-        console.log(this.gamesByRound);
         for (let i = 0; i < this.gamesByRound.length; i++) {
             let roundGame = this.gamesByRound[i];
             for (let j = 0; j < roundGame.games.length; j++) {
@@ -209,22 +231,22 @@ const Game = {
                 let home = $("<input>", {
                     type: 'hidden',
                     name: `game[${i}][${j}][home]`,
-                    value: game.home.id
+                    value: game.home?.id
                 });
                 let away = $("<input>", {
                     type: 'hidden',
                     name: `game[${i}][${j}][away]`,
-                    value: game.away.id
+                    value: game.away?.id
                 });
                 let date = $("<input>", {
                     type: 'hidden',
                     name: `game[${i}][${j}][date]`,
-                    value: game.date
+                    value: game?.date
                 });
                 let round = $("<input>", {
                     type: 'hidden',
                     name: `game[${i}][${j}][round]`,
-                    value: roundGame.round
+                    value: roundGame?.round
                 });
                 inputsBlock.append(home).append(away).append(date).append(round);
             }

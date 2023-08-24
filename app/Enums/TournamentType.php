@@ -20,4 +20,9 @@ enum TournamentType: string
     {
         return array_column(self::cases(), 'value');
     }
+
+    public function isPoints(): bool
+    {
+        return $this === self::POINTS;
+    }
 }

@@ -5,11 +5,11 @@ namespace App\Http\Requests\Game;
 use App\Collections\GamesCollection;
 use App\Collections\RoundCollection;
 use App\DTOs\Game\GameDTO;
+use App\Models\Season;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
-use function PHPUnit\Framework\callback;
 
 class StoreRequest extends FormRequest
 {
@@ -28,11 +28,21 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        /** @var Season $season */
         $season = $this->route('season');
+        $season = $season->load(['seasonTeams', 'tournament']);
+
         return [
-            'game' => 'required|array',
-            'game.*' => 'array',
-            'game.*.*' => 'required|array',
+            'game' => [
+                'required',
+                'array',
+                'size:' . $this->getRoundsCount($season)
+            ],
+            'game.*' => [
+                'array',
+                'size:' . $this->getGamesCountInRounds($season)
+            ],
+            'game.*.*' => ['array'],
             'game.*.*.home' => [
                 'required',
                 'integer',
@@ -67,5 +77,15 @@ class StoreRequest extends FormRequest
                 array: $this->validated('game')
             )
         );
+    }
+
+    private function getRoundsCount(Season $season): float|int
+    {
+        return ($season->seasonTeams->count() - 1) * ($season->tournament->is_home_away ? 2 : 1);
+    }
+
+    private function getGamesCountInRounds(Season $season): float|int
+    {
+        return $season->seasonTeams->count() / 2;
     }
 }

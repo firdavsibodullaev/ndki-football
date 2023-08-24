@@ -69,7 +69,12 @@ class SeasonController extends Controller
     {
         $season = $season->load(['seasonTeams.team', 'games']);
 
-        return view('admin.season.show', compact('season'));
+        return view(
+            view: $season->tournament->type->isPoints()
+                ? 'admin.season.points-show'
+                : 'admin.season.elimination-show',
+            data: compact('season')
+        );
     }
 
     public function showJson(Season $season): SeasonResource
