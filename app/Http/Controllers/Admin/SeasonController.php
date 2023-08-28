@@ -67,7 +67,7 @@ class SeasonController extends Controller
      */
     public function show(Season $season): View
     {
-        $season = $season->load(['seasonTeams.team', 'games']);
+        $season = $season->load(['seasonTeams.team', 'tournament', 'games.home.logo', 'games.away.logo']);
 
         return view(
             view: $season->tournament->type->isPoints()

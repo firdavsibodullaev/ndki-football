@@ -8,7 +8,8 @@
                     <h5 class="card-title">{{ $season->name }}</h5>
                 </div>
                 <div class="card-body">
-                    <p><strong>{{ __('Годы') }}:</strong> {{ $season->dates }}</p>
+                    <h5><strong>{{ __('Турнир') }}:</strong> {{ $season->tournament->name }}</h5>
+                    <h5><strong>{{ __('Годы') }}:</strong> {{ $season->dates }}</h5>
                     @if($season->seasonTeams->count() == 0)
                         <button class="btn btn-primary"
                                 onclick="SeasonTeam.openModal()"
@@ -19,6 +20,53 @@
                                 class="btn btn-primary"
                         >{{ __('Распределить матчи') }}</button>
                     @endif
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header bg-gradient-success">
+                    <div class="card-title">Матчи</div>
+                </div>
+                <div class="card-body" style="overflow-y: auto">
+                    @foreach($season->games->groupBy('round')->sort() as $round => $games)
+                        <div class="h4 text-center">{{ __('Тур', ['round' => $round]) }}</div>
+                        <div class="row">
+                            @foreach($games as $game)
+                                @php($home = $game->home)
+                                @php($away = $game->away)
+                                <div class="col-6 my-2">
+                                    <div class="card bg-gradient-dark">
+                                        <div class="card-body">
+                                            <div class="px-2 py-3">
+                                                <div
+                                                    class="d-flex h-100 align-items-center align-content-center justify-content-center mb-3">
+                                                    <x-fancy-box :url="$home->logo->getFullUrl()"
+                                                                 :alt="$home->logo->file_name"
+                                                                 :css="'width:2rem; object-fit: contain; aspect-ratio: 1'"
+                                                                 :gallery="'team-logo'"/>
+                                                    <span class="mr-3 ml-1 h6 mb-0">{{ $home->name }}</span>
+
+                                                    <span
+                                                        class="h6 mb-0">{{ $game->home_goals }} : {{ $game->away_goals }}</span>
+
+                                                    <span class="ml-3 mr-1 h6 mb-0">{{ $away->name }}</span>
+                                                    <x-fancy-box :url="$away->logo->getFullUrl()"
+                                                                 :alt="$away->logo->file_name"
+                                                                 :css="'width:2rem; object-fit: contain; aspect-ratio: 1'"
+                                                                 :gallery="'team-logo'"/>
+                                                </div>
+                                                <p class="text-center m-0 p-0">{{ __('Дата матча') }}</p>
+                                                <h6 class="text-center">{{ $game->game_at->format('d.m.Y H:i') }}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <a href="{{ route('admin.season.game.show', ['season' => $season->id, 'game' => $game->id]) }}"
+                                               class="w-100 btn btn-secondary">{{ __('Матч') }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

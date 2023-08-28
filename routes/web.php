@@ -39,6 +39,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
             Route::post('', [SeasonTeamController::class, 'store'])->name('store');
         });
         Route::prefix('game')->name('game.')->group(function () {
+            Route::get('{game}', [GameController::class, 'show'])->name('show');
             Route::post('', [GameController::class, 'store'])->name('store');
         });
     });

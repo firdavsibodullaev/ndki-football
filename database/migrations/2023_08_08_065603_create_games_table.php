@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->foreignId('away_id')->constrained('season_teams')->cascadeOnDelete();
             $table->timestamp('game_at');
             $table->integer('round');
+            $table->boolean('is_played')->default(false);
             $table->unsignedInteger('home_goals')->default(0);
             $table->unsignedInteger('away_goals')->default(0);
             $table->timestamps();
