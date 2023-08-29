@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property int $home_goals
  * @property int $away_goals
  * @property GameEnum $status
+ * @property-read string $home_away
  * @property-read Season $season
  * @property-read Team $home
  * @property-read Team $away
@@ -64,7 +65,12 @@ class Game extends Model
         $this->loadMissing(['home', 'away']);
         $home = $this->home->name;
         $away = $this->away->name;
+        $scores = match ($this->status) {
+            GameEnum::PENDING => 'v',
+            GameEnum::PLAYING,
+            GameEnum::PLAYED => "$this->home_goals : $this->away_goals"
+        };
 
-        return Attribute::get(fn() => "$home v $away");
+        return Attribute::get(fn() => "$home $scores $away");
     }
 }

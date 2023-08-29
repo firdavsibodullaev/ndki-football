@@ -12,8 +12,8 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/admin/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-    Route::post('admin/login', [AuthenticatedSessionController::class, 'store']);
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-    Route::put('admin/password', PasswordController::class)->name('password.update');
+    Route::put('password', PasswordController::class)->name('password.update');
 });
