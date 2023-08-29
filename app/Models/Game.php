@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Game as GameEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +18,7 @@ use Illuminate\Support\Carbon;
  * @property int $round
  * @property int $home_goals
  * @property int $away_goals
- * @property boolean $is_played
+ * @property GameEnum $status
  * @property-read Season $season
  * @property-read Team $home
  * @property-read Team $away
@@ -34,12 +35,13 @@ class Game extends Model
         'round',
         'home_goals',
         'away_goals',
-        'is_played'
+        'status'
     ];
 
     protected $casts = [
         'game_at' => 'datetime',
-        'is_played' => 'boolean'
+        'is_played' => 'boolean',
+        'status' => GameEnum::class
     ];
 
     public function season(): BelongsTo

@@ -18,12 +18,10 @@ class SeasonFactory extends Factory
      */
     public function definition(): array
     {
-        $date = $this->faker->date();
-
         return [
             'name' => $this->faker->word,
-            'started_at' => Carbon::createFromFormat('Y-m-d', $date),
-            'finished_at' => Carbon::createFromFormat('Y-m-d', $date)->addYear(),
+            'started_at' => null,
+            'finished_at' => null,
         ];
     }
 }

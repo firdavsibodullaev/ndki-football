@@ -9,6 +9,7 @@ use App\DTOs\Season\SeasonParametersDTO;
 use App\Models\Season;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
 
 class SeasonRepository implements SeasonRepositoryInterface
 {
@@ -37,6 +38,17 @@ class SeasonRepository implements SeasonRepositoryInterface
     public function update(Season $season, SeasonDTO $payload): Season
     {
         $season->fill($payload->toArray());
+        $season->save();
+
+        return $season;
+    }
+
+    public function updateDates(Season $season, Carbon $started_at, Carbon $finished_at): Season
+    {
+        $season->fill([
+            'started_at' => $started_at,
+            'finished_at' => $finished_at
+        ]);
         $season->save();
 
         return $season;

@@ -56,8 +56,8 @@ class Season extends Model
 
     public function dates(): Attribute
     {
-        $from = $this->started_at->format('d.m.Y');
-        $to = $this->finished_at->format('d.m.Y');
+        $from = $this->started_at?->format('d.m.Y');
+        $to = $this->finished_at?->format('d.m.Y');
         return Attribute::get(fn() => "$from - $to");
     }
 
@@ -68,8 +68,11 @@ class Season extends Model
 
     public function years(): Attribute
     {
-        $from = $this->started_at->format('Y');
-        $to = $this->finished_at->format('Y');
+        $from = $this->started_at?->format('Y');
+        $to = $this->finished_at?->format('Y');
+        if (!$from && !$to) {
+            return Attribute::get(fn() => "Не известно");
+        }
         return Attribute::get(fn() => "$from - $to");
     }
 }

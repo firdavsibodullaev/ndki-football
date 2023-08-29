@@ -6,13 +6,16 @@ use App\Collections\GamesCollection;
 use App\Collections\RoundCollection;
 use App\Contracts\Game\GameRepositoryInterface;
 use App\Contracts\Game\GameServiceInterface;
+use App\Contracts\Season\SeasonRepositoryInterface;
 use App\DTOs\Game\GameDTO;
 use App\Models\Season;
+use Illuminate\Support\Facades\DB;
 
 readonly class GameService implements GameServiceInterface
 {
     public function __construct(
-        private GameRepositoryInterface $gameRepository
+        private GameRepositoryInterface   $gameRepository,
+        private SeasonRepositoryInterface $seasonRepository
     )
     {
     }
@@ -21,9 +24,15 @@ readonly class GameService implements GameServiceInterface
     {
         $payload->ensure(RoundCollection::class);
 
-        return $this->gameRepository->insert(
-            items: $this->preparePayload($payload)
-        );
+        return DB::transaction(function () use ($season, $payload) {
+            $inserted = $this->gameRepository->insert(
+                items: $this->preparePayload($payload)
+            );
+
+            $this->seasonRepository->updateDates($season, ...$this->getDeadlineDates($payload));
+
+            return $inserted;
+        });
     }
 
     private function preparePayload(GamesCollection $gamesCollection): array
@@ -48,5 +57,10 @@ readonly class GameService implements GameServiceInterface
             'created_at' => now()->toDateTimeString(),
             'updated_at' => now()->toDateTimeString()
         ];
+    }
+
+    private function getDeadlineDates(GamesCollection $payload): array
+    {
+        return $payload->pluck('*.game_at')->flatten()->sort()->toArray();
     }
 }

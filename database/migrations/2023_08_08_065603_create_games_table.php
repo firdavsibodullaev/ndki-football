@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Game;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration {
             $table->foreignId('away_id')->constrained('season_teams')->cascadeOnDelete();
             $table->timestamp('game_at');
             $table->integer('round');
-            $table->boolean('is_played')->default(false);
+            $table->enum('status', Game::values())->default(Game::PENDING->value);
             $table->unsignedInteger('home_goals')->default(0);
             $table->unsignedInteger('away_goals')->default(0);
             $table->timestamps();
