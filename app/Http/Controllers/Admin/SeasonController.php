@@ -13,7 +13,9 @@ use App\Http\Requests\Season\UpdateRequest;
 use App\Http\Resources\SeasonResource;
 use App\Models\Season;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class SeasonController extends Controller
 {
@@ -67,7 +69,15 @@ class SeasonController extends Controller
      */
     public function show(Season $season): View
     {
-        $season = $season->load(['seasonTeams.team', 'tournament', 'games.home.logo', 'games.away.logo']);
+        $season = $season->load([
+            'seasonTeams' => fn(HasMany $hasMany) => $hasMany
+                ->with('team')
+                ->orderByDesc('points')
+                ->orderByRaw('(goals_scored - goals_conceded) DESC'),
+            'tournament',
+            'games.home.team.logo',
+            'games.away.team.logo'
+        ]);
 
         return view(
             view: $season->tournament->type->isPoints()

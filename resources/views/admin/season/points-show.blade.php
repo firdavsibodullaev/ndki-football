@@ -39,18 +39,18 @@
                                             <div class="px-2 py-3">
                                                 <div
                                                     class="d-flex h-100 align-items-center align-content-center justify-content-center mb-3">
-                                                    <x-fancy-box :url="$home->logo->getFullUrl()"
-                                                                 :alt="$home->logo->file_name"
+                                                    <x-fancy-box :url="$home->team->logo->getFullUrl()"
+                                                                 :alt="$home->team->logo->file_name"
                                                                  :css="'width:2rem; object-fit: contain; aspect-ratio: 1'"
                                                                  :gallery="'team-logo'"/>
-                                                    <span class="mr-3 ml-1 h6 mb-0">{{ $home->name }}</span>
+                                                    <span class="mr-3 ml-1 h6 mb-0">{{ $home->team->name }}</span>
 
                                                     <span
                                                         class="h6 mb-0">{{ $game->home_goals }} : {{ $game->away_goals }}</span>
 
-                                                    <span class="ml-3 mr-1 h6 mb-0">{{ $away->name }}</span>
-                                                    <x-fancy-box :url="$away->logo->getFullUrl()"
-                                                                 :alt="$away->logo->file_name"
+                                                    <span class="ml-3 mr-1 h6 mb-0">{{ $away->team->name }}</span>
+                                                    <x-fancy-box :url="$away->team->logo->getFullUrl()"
+                                                                 :alt="$away->team->logo->file_name"
                                                                  :css="'width:2rem; object-fit: contain; aspect-ratio: 1'"
                                                                  :gallery="'team-logo'"/>
                                                 </div>

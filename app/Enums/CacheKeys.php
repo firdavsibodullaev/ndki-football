@@ -12,4 +12,6 @@ enum CacheKeys: string
     case PLAYER = 'player';
     case SEASON = 'season';
     case TOURNAMENT = 'tournament';
+
+    case GAME_ID = 'game-id';
 }

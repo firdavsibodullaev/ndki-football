@@ -28,27 +28,12 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'started_at' => [
-                'required',
-                'date',
-                'date_format:Y-m-d'
-            ],
-            'finished_at' => [
-                'required',
-                'date',
-                'date_format:Y-m-d',
-                'after_or_equal:started_at'
-            ],
             'tournament_id' => ['required', 'int', Rule::exists('tournaments', 'id')]
         ];
     }
 
     public function toDto(): SeasonDTO
     {
-        $payload = $this->validated();
-        $payload['started_at'] = Carbon::createFromFormat('Y-m-d', $payload['started_at'])->startOfDay();
-        $payload['finished_at'] = Carbon::createFromFormat('Y-m-d', $payload['finished_at'])->endOfDay();
-
-        return new SeasonDTO(...$payload);
+        return new SeasonDTO(...$this->validated());
     }
 }

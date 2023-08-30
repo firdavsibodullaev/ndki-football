@@ -16,5 +16,5 @@ interface SeasonRepositoryInterface
 
     public function update(Season $season, SeasonDTO $payload): Season;
 
-    public function updateDates(Season $season, Carbon $started_at, Carbon $finished_at);
+    public function updateDates(Season $season, Carbon $started_at, ?Carbon $finished_at = null);
 }

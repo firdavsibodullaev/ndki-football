@@ -34,6 +34,11 @@ class TeamRepository implements TeamRepositoryInterface
             ->get();
     }
 
+    public function getById(array $ids): Collection
+    {
+        return Team::query()->find($ids);
+    }
+
     public function create(TeamDTO $payload): Team
     {
         $team = new Team($payload->toArray());

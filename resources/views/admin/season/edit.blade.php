@@ -11,68 +11,44 @@
                   autocomplete="off">
                 @csrf
                 @method('put')
-                <div class="form-group">
-                    <label for="name">{{ __('Название') }}</label>
-                    <input type="text"
-                           class="form-control @error('name') is-invalid @enderror"
-                           id="name"
-                           name="name"
-                           value="{{ $season->name }}"
-                           placeholder="Введите название"
-                           required>
-                    @error('name')
-                    <span id="name-error"
-                          class="error invalid-feedback">{{ $message }}</span>
-                    @enderror
-                </div>
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="started_at">{{ __('Дата начала') }}</label>
-                            <input type="date"
-                                   name="started_at"
-                                   id="started_at"
-                                   class="form-control @error('started_at') is-invalid @enderror"
-                                   value="{{ $season->started_at?->format('Y-m-d') }}">
-                            @error('started_at')
-                            <span id="started_at-error"
+                            <label for="name">{{ __('Название') }}</label>
+                            <input type="text"
+                                   class="form-control @error('name') is-invalid @enderror"
+                                   id="name"
+                                   name="name"
+                                   value="{{ $season->name }}"
+                                   placeholder="Введите название"
+                                   required>
+                            @error('name')
+                            <span id="name-error"
                                   class="error invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="finished_at">{{ __('Дата окончания') }}</label>
-                            <input type="date"
-                                   name="finished_at"
-                                   id="finished_at"
-                                   class="form-control @error('finished_at') is-invalid @enderror"
-                                   value="{{ $season->finished_at?->format('Y-m-d') }}">
-                            @error('finished_at')
-                            <span id="finished_at-error"
+                            <label for="tournament_id">{{ __('Турнир') }}</label>
+                            <select name="tournament_id"
+                                    class="select2 w-100 @error('tournament_id') is-invalid @enderror"
+                                    id="tournament_id"
+                                    data-placeholder="{{ __('Выберите турнир') }}"
+                                    required>
+                                <option value=""></option>
+                                @foreach($tournaments as $tournament)
+                                    <option @selected($tournament->id == $season->tournament_id)
+                                            value="{{ $tournament->id }}"
+                                    >{{ $tournament->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('tournament_id')
+                            <span id="tournament_id-error"
                                   class="error invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="tournament_id">{{ __('Турнир') }}</label>
-                    <select name="tournament_id"
-                            class="select2 w-100 @error('tournament_id') is-invalid @enderror"
-                            id="tournament_id"
-                            data-placeholder="{{ __('Выберите турнир') }}"
-                            required>
-                        <option value=""></option>
-                        @foreach($tournaments as $tournament)
-                            <option @selected($tournament->id == $season->tournament_id)
-                                    value="{{ $tournament->id }}"
-                            >{{ $tournament->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('tournament_id')
-                    <span id="tournament_id-error"
-                          class="error invalid-feedback">{{ $message }}</span>
-                    @enderror
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">{{ __('Сохранить') }}</button>

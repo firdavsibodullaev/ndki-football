@@ -11,6 +11,8 @@ interface TeamRepositoryInterface
 {
     public function fetch(TeamFilterDTO $dto = new TeamFilterDTO()): Collection;
 
+    public function getById(array $ids): Collection;
+
     public function create(TeamDTO $payload): Team;
 
     public function update(Team $team, TeamDTO $payload): Team;

@@ -15,6 +15,8 @@ use Illuminate\Support\Carbon;
  * @property int $home_id
  * @property int $away_id
  * @property Carbon $game_at
+ * @property Carbon $started_at
+ * @property Carbon $finished_at
  * @property int $round
  * @property int $home_goals
  * @property int $away_goals
@@ -33,6 +35,8 @@ class Game extends Model
         'home_id',
         'away_id',
         'game_at',
+        'started_at',
+        'finished_at',
         'round',
         'home_goals',
         'away_goals',
@@ -41,6 +45,8 @@ class Game extends Model
 
     protected $casts = [
         'game_at' => 'datetime',
+        'started_at' => 'datetime',
+        'finished_at' => 'datetime',
         'is_played' => 'boolean',
         'status' => GameEnum::class
     ];
@@ -52,12 +58,12 @@ class Game extends Model
 
     public function home(): BelongsTo
     {
-        return $this->belongsTo(Team::class, 'home_id');
+        return $this->belongsTo(SeasonTeam::class, 'home_id');
     }
 
     public function away(): BelongsTo
     {
-        return $this->belongsTo(Team::class, 'away_id');
+        return $this->belongsTo(SeasonTeam::class, 'away_id');
     }
 
     public function homeAway(): Attribute

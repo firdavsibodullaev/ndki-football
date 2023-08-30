@@ -24,6 +24,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property boolean $is_active
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read string $full_name
+ * @property-read string $name_initials
  * @property-read Media|null $avatar
  */
 class Player extends Model implements HasMedia

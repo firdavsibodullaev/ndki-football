@@ -31,18 +31,26 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('player', PlayerController::class)->whereNumber('player');
     Route::resource('tournament', TournamentController::class)->whereNumber('tournament');
 
-    Route::prefix('season/{season}')->name('season.')->whereNumber('season')->group(function () {
-        Route::get('show-json', [SeasonController::class, 'showJson'])->name('show_json');
+    Route::prefix('season/{season}')
+        ->name('season.')
+        ->whereNumber('season')
+        ->group(function () {
+            Route::get('show-json', [SeasonController::class, 'showJson'])->name('show_json');
 
-        Route::prefix('team')->name('team.')->group(function () {
-            Route::get('', [SeasonTeamController::class, 'index'])->name('index');
-            Route::post('', [SeasonTeamController::class, 'store'])->name('store');
+            Route::prefix('team')->name('team.')->group(function () {
+                Route::get('', [SeasonTeamController::class, 'index'])->name('index');
+                Route::post('', [SeasonTeamController::class, 'store'])->name('store');
+            });
+            Route::prefix('game')->name('game.')->group(function () {
+                Route::get('{game}', [GameController::class, 'show'])
+                    ->scopeBindings()
+                    ->name('show');
+                Route::post('', [GameController::class, 'store'])->name('store');
+                Route::patch('{game}/start', [GameController::class, 'start'])
+                    ->scopeBindings()
+                    ->name('start');
+            });
         });
-        Route::prefix('game')->name('game.')->group(function () {
-            Route::get('{game}', [GameController::class, 'show'])->name('show');
-            Route::post('', [GameController::class, 'store'])->name('store');
-        });
-    });
 
     Route::resource('season', SeasonController::class)->whereNumber('season');
 

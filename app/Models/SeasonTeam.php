@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\CacheKeys;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * @property-read int $id
@@ -36,5 +40,17 @@ class SeasonTeam extends Model
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
+    }
+
+    public function players(): HasMany
+    {
+        $cache_key = CacheKeys::GAME_ID->key(['user_id' => auth()->id()]);
+        $game_id = Cache::get($cache_key);
+
+        return $this->hasMany(GamePlayer::class, 'team_id')
+            ->when(
+                value: $game_id,
+                callback: fn(Builder $builder) => $builder->where('game_id', '=', $game_id)
+            );
     }
 }

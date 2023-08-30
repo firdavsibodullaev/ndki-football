@@ -43,11 +43,11 @@ class SeasonRepository implements SeasonRepositoryInterface
         return $season;
     }
 
-    public function updateDates(Season $season, Carbon $started_at, Carbon $finished_at): Season
+    public function updateDates(Season $season, Carbon $started_at, ?Carbon $finished_at = null): Season
     {
         $season->fill([
             'started_at' => $started_at,
-            'finished_at' => $finished_at
+            'finished_at' => $finished_at ?: $started_at
         ]);
         $season->save();
 

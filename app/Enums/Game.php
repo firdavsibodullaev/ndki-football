@@ -12,4 +12,18 @@ enum Game: string
     {
         return array_column(self::cases(), 'value');
     }
+
+    public function translate(): string
+    {
+        return match ($this) {
+            self::PENDING => __('В ожидании'),
+            self:: PLAYING => __('Матч идет'),
+            self::PLAYED => __('Сыграно')
+        };
+    }
+
+    public function isPending(): bool
+    {
+        return $this->value === self::PENDING->value;
+    }
 }

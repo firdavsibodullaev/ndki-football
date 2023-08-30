@@ -27,31 +27,12 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'started_at' => [
-                'nullable',
-                'date',
-                'date_format:Y-m-d'
-            ],
-            'finished_at' => [
-                'nullable',
-                'date',
-                'date_format:Y-m-d',
-                'after_or_equal:started_at'
-            ],
             'tournament_id' => ['required', 'int', Rule::exists('tournaments', 'id')]
         ];
     }
 
     public function toDto(): SeasonDTO
     {
-        $payload = $this->validated();
-        $payload['started_at'] = $payload['started_at']
-            ? Carbon::createFromFormat('Y-m-d', $payload['started_at'])->startOfDay()
-            : null;
-        $payload['finished_at'] = $payload['finished_at']
-            ? Carbon::createFromFormat('Y-m-d', $payload['finished_at'])->endOfDay()
-            : null;
-
-        return new SeasonDTO(...$payload);
+        return new SeasonDTO(...$this->validated());
     }
 }
