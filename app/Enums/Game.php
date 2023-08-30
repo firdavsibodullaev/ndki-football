@@ -26,4 +26,9 @@ enum Game: string
     {
         return $this->value === self::PENDING->value;
     }
+
+    public function isPlaying(): bool
+    {
+        return $this->value === self::PLAYING->value;
+    }
 }
