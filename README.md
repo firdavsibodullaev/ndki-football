@@ -59,4 +59,8 @@ php artisan storage:link
 exit
 ```
 
+### Nginx
+
+Укажите прокси путь в nginx на `127.0.0.1:8010`
+
 ## Готово
