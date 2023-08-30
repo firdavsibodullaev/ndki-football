@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\Role;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,9 +22,9 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        \App\Models\User::query()->create([
+        User::query()->create([
             'name' => 'Admin',
-            'role' => \App\Enums\Role::ADMIN->value,
+            'role' => Role::ADMIN->value,
             'username' => 'admin',
             'password' => bcrypt('password')
         ]);

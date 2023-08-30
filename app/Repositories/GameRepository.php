@@ -24,4 +24,15 @@ class GameRepository implements GameRepositoryInterface
 
         return $game;
     }
+
+    public function finish(Game $game): Game
+    {
+        $game->fill([
+            'status' => GameEnum::PLAYED,
+            'finished_at' => now()
+        ]);
+        $game->save();
+
+        return $game;
+    }
 }

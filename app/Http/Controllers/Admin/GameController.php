@@ -53,4 +53,11 @@ class GameController extends Controller
 
         return redirect()->back();
     }
+
+    public function finish(Season $season, Game $game)
+    {
+        $this->gameService->finish($game);
+
+        return redirect()->back();
+    }
 }

@@ -49,6 +49,11 @@ readonly class GameService implements GameServiceInterface
         });
     }
 
+    public function finish(Game $game): Game
+    {
+        return $this->gameRepository->finish($game);
+    }
+
     private function preparePayload(GamesCollection $gamesCollection): array
     {
         return $gamesCollection->map(

@@ -24,12 +24,17 @@
                                     <button class="btn btn-primary"
                                             onclick="GameStart.openModal()">{{ __('Начать матч') }}</button>
                                 </div>
+                            @elseif($game->status->isPlaying())
+                                <form action="{{ route('admin.season.game.finish',[$game->season_id, $game->id]) }}"
+                                      method="post">
+                                    @csrf
+                                    @method('patch')
+                                    <button class="btn btn-primary"
+                                            type="submit">{{ __('Закончить') }}</button>
+                                </form>
                             @endif
                         </div>
-                        <div @class([
-                                "col-10" => $game->status->isPending(),
-                                "col-12" => !$game->status->isPending()
-                            ])>
+                        <div class="col-10">
                             <div class="d-flex justify-content-center">
                                 <h4><strong>{{ __('Счёт') }}</strong></h4>
                             </div>

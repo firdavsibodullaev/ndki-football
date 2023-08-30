@@ -49,6 +49,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
                 Route::patch('{game}/start', [GameController::class, 'start'])
                     ->scopeBindings()
                     ->name('start');
+                Route::patch('{game}/finish', [GameController::class, 'finish'])
+                    ->scopeBindings()
+                    ->name('finish');
             });
         });
 
