@@ -10,7 +10,7 @@
 ### Загрузка репозитория
 
 ```bash
-git clone https://github.com/firdavsibodullaev/ndki-football.git
+git clone https://github.com/firdavsibodullaev/ndki_football.git
 ```
 
 ### Конфигурационный файл
@@ -35,21 +35,33 @@ DB_PASSWORD="Пароль для базы данных"
 docker compose build
 ```
 
-```php
+```bash
 docker compose up -d
 ```
 
 После поднятия контейнера войдите в контейнер
 
 ```bash
-docker exec -it football_app bash
+docker exec -it ndki_football_app bash
+```
+
+Установка зависимостей
+
+```bash
+composer install --optimize-autoloader --no-dev
 ```
 
 Внутри контейнера запустите следующие команды
 
 ```bash
 php artisan key:generate
+```
+
+```bash
 php artisan migrate
+```
+
+```bash
 php artisan storage:link
 ```
 
