@@ -65,6 +65,34 @@ php artisan migrate
 php artisan storage:link
 ```
 
+```bash
+php artisan optimize:clear
+```
+
+```bash
+php artisan route:cache
+```
+
+```bash
+php artisan view:cache
+```
+
+```bash
+php artisan config:cache
+```
+
+```bash
+php artisan event:cache
+```
+
+```bash
+chown -R www-data:www-data ./storage
+```
+
+```bash
+chown -R www-data:www-data ./bootstrap/cache
+```
+
 После запуска команды выйдите из контейнера
 
 ```bash
