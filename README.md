@@ -32,7 +32,7 @@ DB_PASSWORD="Пароль для базы данных"
 ### Докер
 
 ```bash
-docker compose build
+docker compose build --no-cache
 ```
 
 ```bash
