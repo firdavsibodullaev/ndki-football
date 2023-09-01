@@ -13,6 +13,12 @@
 git clone https://github.com/firdavsibodullaev/ndki_football.git
 ```
 
+Переходите в папку проекта
+
+```bash
+cd ./ndki_football
+```
+
 ### Конфигурационный файл
 
 Переименовать `.env.example` на `.env`
