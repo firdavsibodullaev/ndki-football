@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\GameController;
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\PlayerController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SeasonController;
 use App\Http\Controllers\Admin\SeasonTeamController;
 use App\Http\Controllers\Admin\TeamController;
@@ -67,11 +68,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::resource('season', SeasonController::class)->whereNumber('season');
 
-//    Route::prefix('profile')->name('profile.')->group(function () {
-//        Route::get('', [ProfileController::class, 'edit'])->name('edit');
-//        Route::patch('', [ProfileController::class, 'update'])->name('update');
-//        Route::delete('', [ProfileController::class, 'destroy'])->name('destroy');
-//    });
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('', [ProfileController::class, 'edit'])->name('edit');
+        Route::patch('', [ProfileController::class, 'update'])->name('update');
+        Route::patch('password', [ProfileController::class, 'updatePassword'])->name('update_password');
+    });
 });
 
 require __DIR__ . '/auth.php';

@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
+use App\DTOs\User\UserDTO;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ProfileUpdateRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
+    protected $errorBag = 'user';
     /**
      * Get the validation rules that apply to the request.
      *
@@ -19,5 +21,10 @@ class ProfileUpdateRequest extends FormRequest
             'name' => ['string', 'max:255'],
             'username' => ['string', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
         ];
+    }
+
+    public function toDto(): UserDTO
+    {
+        return new UserDTO(...$this->validated());
     }
 }

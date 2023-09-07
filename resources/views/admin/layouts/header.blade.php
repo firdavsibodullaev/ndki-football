@@ -16,6 +16,11 @@
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <div class="dropdown-divider"></div>
+                <a href="{{ route('admin.profile.edit') }}"
+                   class="dropdown-item">
+                    <i class="fas fa-user"></i> {{ __('Профиль') }}
+                </a>
+                <div class="dropdown-divider"></div>
                 <a href="javascript:void(0)"
                    onclick="$('#logout-form').submit()"
                    class="dropdown-item">
