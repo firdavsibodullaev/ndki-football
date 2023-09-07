@@ -37,7 +37,7 @@ class UpdateRequest extends FormRequest
                 'max:100',
                 Rule::unique('tournaments', 'name')->ignore($tournament->id)
             ],
-            'type' => ['required', 'string', new Enum(TournamentType::class)],
+//            'type' => ['required', 'string', new Enum(TournamentType::class)],
             'is_home_away' => 'nullable|boolean'
         ];
     }
@@ -46,7 +46,8 @@ class UpdateRequest extends FormRequest
     {
         return new TournamentDTO(
             name: $this->get('name'),
-            type: TournamentType::tryFrom($this->get('type')),
+//            type: TournamentType::tryFrom($this->get('type')),
+            type: TournamentType::POINTS,
             is_home_away: $this->boolean('is_home_away')
         );
     }

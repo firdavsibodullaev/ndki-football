@@ -27,26 +27,26 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="type">{{ __('Тип') }}</label>
-                            <select class="form-control select2 @error('type') is-invalid @enderror"
-                                    name="type"
-                                    id="type"
-                                    data-placeholder="{{ __('Выберите тип') }}"
-                                    required>
-                                <option value=""></option>
-                                @foreach($types as $type)
-                                    <option @selected($type->value === old('type'))
-                                            value="{{ $type->value }}">{{ $type->translate() }}</option>
-                                @endforeach
-                            </select>
-                            @error('type')
-                            <span id="name-error"
-                                  class="error invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
+{{--                    <div class="col-6">--}}
+{{--                        <div class="form-group">--}}
+{{--                            <label for="type">{{ __('Тип') }}</label>--}}
+{{--                            <select class="form-control select2 @error('type') is-invalid @enderror"--}}
+{{--                                    name="type"--}}
+{{--                                    id="type"--}}
+{{--                                    data-placeholder="{{ __('Выберите тип') }}"--}}
+{{--                                    required>--}}
+{{--                                <option value=""></option>--}}
+{{--                                @foreach($types as $type)--}}
+{{--                                    <option @selected($type->value === old('type'))--}}
+{{--                                            value="{{ $type->value }}">{{ $type->translate() }}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                            @error('type')--}}
+{{--                            <span id="name-error"--}}
+{{--                                  class="error invalid-feedback">{{ $message }}</span>--}}
+{{--                            @enderror--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
                 <div class="form-group">
                     <div class="icheck-primary">
