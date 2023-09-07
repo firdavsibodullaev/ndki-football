@@ -95,11 +95,11 @@
                             <th style="width:1.5rem">#</th>
                             <th style="width:1.5rem">{{ __('Лого') }}</th>
                             <th class="text-left" style="min-width:300px">{{ __('Название') }}</th>
-                            <th title="{{ __('Забитые голы') }}">{{ __('ЗГ') }}</th>
-                            <th title="{{ __('Пропущенные голы') }}">{{ __('ПГ') }}</th>
+                            <th title="{{ __('Проведенные матчи') }}">{{ __('И') }}</th>
                             <th title="{{ __('Выигрыши') }}">{{ __('В') }}</th>
                             <th title="{{ __('Ничьи') }}">{{ __('Н') }}</th>
                             <th title="{{ __('Поражения') }}">{{ __('П') }}</th>
+                            <th style="min-width: 50px" title="{{ __('Забитые/Пропущенные голы') }}">{{ __('З-П') }}</th>
                             <th>{{ __('Очко') }}</th>
                         </tr>
                         </thead>
@@ -116,11 +116,11 @@
                                     </div>
                                 </td>
                                 <td class="text-left">{{ $team->team->name }}</td>
-                                <td>{{ $team->goals_scored }}</td>
-                                <td>{{ $team->goals_conceded }}</td>
+                                <td>{{ $team->rounds }}</td>
                                 <td>{{ $team->victory }}</td>
                                 <td>{{ $team->draw }}</td>
                                 <td>{{ $team->defeat }}</td>
+                                <td>{{ $team->goals_scored }}-{{ $team->goals_conceded }}</td>
                                 <td class="font-weight-bold">{{ $team->points }}</td>
                             </tr>
                         @endforeach

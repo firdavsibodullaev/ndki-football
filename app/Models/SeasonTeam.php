@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Cache;
  * @property int $points
  * @property int $goals_scored
  * @property int $goals_conceded
+ * @property int $rounds
  * @property int $victory
  * @property int $defeat
  * @property int $draw
@@ -33,6 +34,7 @@ class SeasonTeam extends Model
         'points',
         'goals_scored',
         'goals_conceded',
+        'rounds',
         'victory',
         'defeat',
         'draw',

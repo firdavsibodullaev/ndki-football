@@ -30,6 +30,7 @@ class SeasonTeamRepository implements SeasonTeamRepositoryInterface
             'victory' => $seasonTeam->victory + (int)$result->isVictory(),
             'defeat' => $seasonTeam->defeat + (int)$result->isDefeat(),
             'draw' => $seasonTeam->draw + (int)$result->isDraw(),
+            'rounds' => $seasonTeam->rounds + 1
         ]);
         $seasonTeam->save();
 

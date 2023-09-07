@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->integer('points')->default(0);
             $table->integer('goals_scored')->default(0)->comment('Забитые голы');
             $table->integer('goals_conceded')->default(0)->comment('Пропущенные голы');
+            $table->unsignedTinyInteger('rounds')->default(0);
             $table->unsignedTinyInteger('victory')->default(0);
             $table->unsignedTinyInteger('defeat')->default(0);
             $table->unsignedTinyInteger('draw')->default(0);
