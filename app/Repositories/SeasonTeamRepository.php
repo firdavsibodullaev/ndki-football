@@ -3,8 +3,11 @@
 namespace App\Repositories;
 
 use App\Contracts\SeasonTeam\SeasonTeamRepositoryInterface;
+use App\DTOs\Game\GameGoalDTO;
 use App\DTOs\SeasonTeam\SeasonTeamDTO;
+use App\Enums\GameResult;
 use App\Models\Season;
+use App\Models\SeasonTeam;
 use Illuminate\Database\Eloquent\Collection;
 
 class SeasonTeamRepository implements SeasonTeamRepositoryInterface
@@ -17,4 +20,20 @@ class SeasonTeamRepository implements SeasonTeamRepositoryInterface
 
         return $season;
     }
+
+    public function game(SeasonTeam $seasonTeam, GameGoalDTO $goals, GameResult $result): SeasonTeam
+    {
+        $seasonTeam->fill([
+            'goals_scored' => $seasonTeam->goals_scored + $goals->scored,
+            'goals_conceded' => $seasonTeam->goals_conceded + $goals->conceded,
+            'points' => $seasonTeam->points + $result->points(),
+            'victory' => $seasonTeam->victory + (int)$result->isVictory(),
+            'defeat' => $seasonTeam->defeat + (int)$result->isDefeat(),
+            'draw' => $seasonTeam->draw + (int)$result->isDraw(),
+        ]);
+        $seasonTeam->save();
+
+        return $seasonTeam;
+    }
+
 }

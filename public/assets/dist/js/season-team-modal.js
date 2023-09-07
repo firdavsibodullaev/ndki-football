@@ -70,14 +70,14 @@ const SeasonTeam = {
     getLogo(team) {
         const td = $('<td>');
         const anchor = $('<a>', {
-            "data-src": team.logo.url,
+            "data-src": team.logo?.url,
             "data-fancybox": "team-logo",
             "href": "javascript.void(0)"
         });
         const img = $('<img>', {
             style: 'width:1.5rem; object-fit: contain; aspect-ratio: 1',
-            src: team.logo.url,
-            alt: team.logo.filename
+            src: team.logo?.url,
+            alt: team.logo?.filename
         });
         return td.append(
             anchor.append(img)

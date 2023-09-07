@@ -57,8 +57,8 @@
                 <div class="card-body">
                     <h5 class="text-center">{{ $team->name }}</h5>
                     <div class="d-flex justify-content-center text-center">
-                        <x-fancy-box :url="$team->logo->getFullUrl()"
-                                     :alt="$team->logo->file_name"
+                        <x-fancy-box :url="$team->logo?->getFullUrl()"
+                                     :alt="$team->logo?->file_name"
                                      :css="'width:50%; object-fit: contain; aspect-ratio: 1'"
                                      :gallery="'team-logo'"/>
                     </div>

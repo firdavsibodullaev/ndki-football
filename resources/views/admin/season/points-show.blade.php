@@ -37,30 +37,43 @@
                                     <div class="card bg-gradient-dark">
                                         <div class="card-body">
                                             <div class="px-2 py-3">
-                                                <div
-                                                    class="d-flex h-100 align-items-center align-content-center justify-content-center mb-3">
-                                                    <x-fancy-box :url="$home->team->logo->getFullUrl()"
-                                                                 :alt="$home->team->logo->file_name"
-                                                                 :css="'width:2rem; object-fit: contain; aspect-ratio: 1'"
-                                                                 :gallery="'team-logo'"/>
-                                                    <span class="mr-3 ml-1 h6 mb-0">{{ $home->team->name }}</span>
-
-                                                    <span
-                                                        class="h6 mb-0">{{ $game->home_goals }} : {{ $game->away_goals }}</span>
-
-                                                    <span class="ml-3 mr-1 h6 mb-0">{{ $away->team->name }}</span>
-                                                    <x-fancy-box :url="$away->team->logo->getFullUrl()"
-                                                                 :alt="$away->team->logo->file_name"
-                                                                 :css="'width:2rem; object-fit: contain; aspect-ratio: 1'"
-                                                                 :gallery="'team-logo'"/>
+                                                <div class="mb-3">
+                                                    <div class="row">
+                                                        <div class="col-8 d-flex justify-content-start">
+                                                            <x-fancy-box
+                                                                :url="$home->team->logo?->getFullUrl()"
+                                                                :alt="$home->team->logo?->file_name"
+                                                                :css="'width:2rem; object-fit: contain; aspect-ratio: 1'"
+                                                                :gallery="'team-logo'"/>
+                                                            <span
+                                                                class="ml-2 h6 mb-0">{{ $home->team->name }}</span>
+                                                        </div>
+                                                        <div class="col-4 text-right">{{ $game->home_goals }}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-8 d-flex justify-content-start">
+                                                            <x-fancy-box :url="$away->team->logo?->getFullUrl()"
+                                                                         :alt="$away->team->logo?->file_name"
+                                                                         :css="'width:2rem; object-fit: contain; aspect-ratio: 1'"
+                                                                         :gallery="'team-logo'"/>
+                                                            <span
+                                                                class="ml-2 h6 mb-0">{{ $away->team->name }}</span>
+                                                        </div>
+                                                        <div class="col-4 text-right">{{ $game->away_goals }}</div>
+                                                    </div>
                                                 </div>
                                                 <p class="text-center m-0 p-0">{{ __('Дата матча') }}</p>
                                                 <h6 class="text-center">{{ $game->game_at->format('d.m.Y H:i') }}</h6>
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <a href="{{ route('admin.season.game.show', ['season' => $season->id, 'game' => $game->id]) }}"
-                                               class="w-100 btn btn-secondary">{{ __('Матч') }}</a>
+                                            @if($game->finished_at)
+                                                <button class="w-100 btn btn-secondary"
+                                                        disabled>{{ __('Матч') }}</button>
+                                            @else
+                                                <a onclick="MatchGoals.openModal({{ $season->id }},{{ $game->id }})"
+                                                   class="w-100 btn btn-secondary">{{ __('Матч') }}</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -81,8 +94,13 @@
                         <tr>
                             <th style="width:1.5rem">#</th>
                             <th style="width:1.5rem">{{ __('Лого') }}</th>
-                            <th style="width:15rem">{{ __('Название') }}</th>
-                            <th class="text-right">{{ __('Очко') }}</th>
+                            <th class="text-left" style="min-width:300px">{{ __('Название') }}</th>
+                            <th title="{{ __('Забитые голы') }}">{{ __('ЗГ') }}</th>
+                            <th title="{{ __('Пропущенные голы') }}">{{ __('ПГ') }}</th>
+                            <th title="{{ __('Выигрыши') }}">{{ __('В') }}</th>
+                            <th title="{{ __('Ничьи') }}">{{ __('Н') }}</th>
+                            <th title="{{ __('Поражения') }}">{{ __('П') }}</th>
+                            <th>{{ __('Очко') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -91,14 +109,19 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
                                     <div class="d-flex h-100 align-content-center justify-content-center">
-                                        <x-fancy-box :url="$team->team->logo->getFullUrl()"
-                                                     :alt="$team->team->logo->file_name"
+                                        <x-fancy-box :url="$team->team->logo?->getFullUrl()"
+                                                     :alt="$team->team->logo?->file_name"
                                                      :css="'width:1.5rem; object-fit: contain; aspect-ratio: 1'"
                                                      :gallery="'team-logo'"/>
                                     </div>
                                 </td>
-                                <td>{{ $team->team->name }}</td>
-                                <td class="text-right">{{ $team->points }}</td>
+                                <td class="text-left">{{ $team->team->name }}</td>
+                                <td>{{ $team->goals_scored }}</td>
+                                <td>{{ $team->goals_conceded }}</td>
+                                <td>{{ $team->victory }}</td>
+                                <td>{{ $team->draw }}</td>
+                                <td>{{ $team->defeat }}</td>
+                                <td class="font-weight-bold">{{ $team->points }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -113,4 +136,5 @@
     @if($season->seasonTeams->count() > 0 && $season->games->count() === 0)
         <x-modals.game-modal :season="$season"/>
     @endif
+    <x-game.match-goals/>
 @endsection

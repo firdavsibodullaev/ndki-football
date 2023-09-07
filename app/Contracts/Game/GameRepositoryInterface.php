@@ -2,6 +2,7 @@
 
 namespace App\Contracts\Game;
 
+use App\DTOs\Game\SaveScoreDTO;
 use App\Models\Game;
 
 interface GameRepositoryInterface
@@ -11,4 +12,6 @@ interface GameRepositoryInterface
     public function start(Game $game): Game;
 
     public function finish(Game $game): Game;
+
+    public function saveScore(Game $game, SaveScoreDTO $payload): Game;
 }

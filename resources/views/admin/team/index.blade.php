@@ -27,8 +27,8 @@
                         <td>{{ $team->id }}</td>
                         <td>
                             <div class="d-flex h-100 align-content-center justify-content-center">
-                                <x-fancy-box :url="$team->logo->getFullUrl()"
-                                             :alt="$team->logo->file_name"
+                                <x-fancy-box :url="$team->logo?->getFullUrl()"
+                                             :alt="$team->logo?->file_name"
                                              :css="'width:1.5rem; object-fit: contain; aspect-ratio: 1'"
                                              :gallery="'team-logo'"/>
                             </div>

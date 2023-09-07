@@ -21,7 +21,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Collection<Player> $players
- * @property-read Media $logo
+ * @property-read Media|null $logo
  */
 class Team extends Model implements HasMedia
 {

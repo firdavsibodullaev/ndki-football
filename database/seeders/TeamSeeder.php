@@ -20,8 +20,8 @@ class TeamSeeder extends Seeder
             ->has(Player::factory(11), 'players')
             ->create()
             ->each(function (Team $team) {
-                $fake_image = $this->generateFakeImage();
-                $team->addMediaFromDisk($fake_image, 'local')->toMediaCollection(MediaCollection::TEAM_LOGO->value);
+//                $fake_image = $this->generateFakeImage();
+//                $team->addMediaFromDisk($fake_image, 'local')->toMediaCollection(MediaCollection::TEAM_LOGO->value);
             });
 
     }

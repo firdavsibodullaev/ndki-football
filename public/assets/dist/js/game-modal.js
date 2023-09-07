@@ -26,7 +26,7 @@ const Game = {
         let config = {};
 
         $.ajax({
-            url: `${location.origin}/admin/season/${this.seasonId}/show-json`,
+            url: `${location.origin}/admin/season/${this.seasonId}/json`,
             method: 'get',
             async: false,
             success(response) {
@@ -152,7 +152,7 @@ const Game = {
     },
     addTeamToGamesByRoundList(el, round, gameNumber, key) {
         if (this.handleSelectEvent) return;
-        console.log(this.gamesByRound);
+
         const $this = $(el);
         const id = +$this.val();
         if (id === 0) return;

@@ -20,8 +20,8 @@ class TeamResource extends JsonResource
             'id' => $this->resource->id,
             'name' => $this->resource->name,
             'logo' => $this->whenLoaded('logo', fn() => [
-                'url' => $this->resource->logo->getFullUrl(),
-                'filename' => $this->resource->logo->file_name
+                'url' => $this->resource->logo?->getFullUrl(),
+                'filename' => $this->resource->logo?->file_name
             ]),
         ];
     }

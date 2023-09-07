@@ -23,8 +23,8 @@ use Illuminate\Support\Carbon;
  * @property GameEnum $status
  * @property-read string $home_away
  * @property-read Season $season
- * @property-read Team $home
- * @property-read Team $away
+ * @property-read SeasonTeam $home
+ * @property-read SeasonTeam $away
  */
 class Game extends Model
 {
@@ -40,7 +40,8 @@ class Game extends Model
         'round',
         'home_goals',
         'away_goals',
-        'status'
+        'status',
+        'is_played'
     ];
 
     protected $casts = [

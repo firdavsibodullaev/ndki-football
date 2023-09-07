@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Cache;
  * @property int $points
  * @property int $goals_scored
  * @property int $goals_conceded
+ * @property int $victory
+ * @property int $defeat
+ * @property int $draw
  * @property-read Season $season
  * @property-read Team $team
  */
@@ -29,7 +32,10 @@ class SeasonTeam extends Model
         'team_id',
         'points',
         'goals_scored',
-        'goals_conceded'
+        'goals_conceded',
+        'victory',
+        'defeat',
+        'draw',
     ];
 
     public function season(): BelongsTo
@@ -44,7 +50,7 @@ class SeasonTeam extends Model
 
     public function players(): HasMany
     {
-        $cache_key = CacheKeys::GAME_ID->key(['user_id' => auth()->id()]);
+        $cache_key = CacheKeys::GAME_ID->key(['start' => LARAVEL_START, 'user_id' => auth()->id()]);
         $game_id = Cache::get($cache_key);
 
         return $this->hasMany(GamePlayer::class, 'team_id')

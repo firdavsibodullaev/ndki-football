@@ -3,6 +3,7 @@
 namespace App\Contracts\Game;
 
 use App\Collections\GamesCollection;
+use App\DTOs\Game\SaveScoreDTO;
 use App\DTOs\Game\Start\StartGameDTO;
 use App\Models\Game;
 use App\Models\Season;
@@ -14,4 +15,6 @@ interface GameServiceInterface
     public function start(Season $season, Game $game, StartGameDTO $payload);
 
     public function finish(Game $game): Game;
+
+    public function saveScore(Season $season, Game $game, SaveScoreDTO $payload): Game;
 }

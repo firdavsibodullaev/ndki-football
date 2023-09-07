@@ -35,23 +35,33 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         ->name('season.')
         ->whereNumber('season')
         ->group(function () {
-            Route::get('show-json', [SeasonController::class, 'showJson'])->name('show_json');
+            Route::get('json', [SeasonController::class, 'showJson'])->name('show_json');
 
             Route::prefix('team')->name('team.')->group(function () {
                 Route::get('', [SeasonTeamController::class, 'index'])->name('index');
                 Route::post('', [SeasonTeamController::class, 'store'])->name('store');
             });
+
             Route::prefix('game')->name('game.')->group(function () {
                 Route::get('{game}', [GameController::class, 'show'])
                     ->scopeBindings()
                     ->name('show');
+
+                Route::get('{game}/json', [GameController::class, 'showJson'])
+                    ->scopeBindings()
+                    ->name('show_json');
+
                 Route::post('', [GameController::class, 'store'])->name('store');
+
                 Route::patch('{game}/start', [GameController::class, 'start'])
                     ->scopeBindings()
                     ->name('start');
                 Route::patch('{game}/finish', [GameController::class, 'finish'])
                     ->scopeBindings()
                     ->name('finish');
+                Route::patch('{game}/save-score', [GameController::class, 'saveScore'])
+                    ->scopeBindings()
+                    ->name('save_score');
             });
         });
 

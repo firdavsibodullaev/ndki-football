@@ -63,7 +63,7 @@ class Season extends Model
 
     public function isCurrent(): Attribute
     {
-        return Attribute::get(fn() => now()->between($this->started_at, $this->finished_at));
+        return Attribute::get(fn() => now()->between($this->started_at?->startOfDay(), $this->finished_at?->endOfDay()));
     }
 
     public function years(): Attribute

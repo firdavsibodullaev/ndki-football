@@ -14,9 +14,12 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('season_id')->constrained()->cascadeOnDelete();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
-            $table->unsignedInteger('points')->default(0);
-            $table->unsignedInteger('goals_scored')->default(0)->comment('Забитые голы');
-            $table->unsignedInteger('goals_conceded')->default(0)->comment('Пропущенные голы');
+            $table->integer('points')->default(0);
+            $table->integer('goals_scored')->default(0)->comment('Забитые голы');
+            $table->integer('goals_conceded')->default(0)->comment('Пропущенные голы');
+            $table->unsignedTinyInteger('victory')->default(0);
+            $table->unsignedTinyInteger('defeat')->default(0);
+            $table->unsignedTinyInteger('draw')->default(0);
             $table->timestamps();
         });
     }
