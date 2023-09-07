@@ -72,4 +72,18 @@ class RouteActive
             'admin.season.show',
         ]);
     }
+
+    public function isSettingsList(): bool
+    {
+        return $this->isUsersList();
+    }
+
+    public function isUsersList(): bool
+    {
+        return in_array($this->current(), [
+            'admin.user.index',
+            'admin.user.create',
+            'admin.user.edit',
+        ]);
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\User;
 
-use App\DTOs\User\UserDTO;
+use App\DTOs\User\UpdateDTO;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -10,6 +10,15 @@ use Illuminate\Validation\Rule;
 class UpdateRequest extends FormRequest
 {
     protected $errorBag = 'user';
+
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,8 +32,19 @@ class UpdateRequest extends FormRequest
         ];
     }
 
-    public function toDto(): UserDTO
+    /**
+     * @return array
+     */
+    public function getAttributes(): array
     {
-        return new UserDTO(...$this->validated());
+        return [
+            'name' => __('Имя'),
+            'username' => __('Логин'),
+        ];
+    }
+
+    public function toDto(): UpdateDTO
+    {
+        return new UpdateDTO(...$this->validated());
     }
 }

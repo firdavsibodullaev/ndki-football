@@ -23,6 +23,16 @@ class PasswordRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array
+     */
+    public function getAttributes(): array
+    {
+        return [
+            'password' => __('Пароль')
+        ];
+    }
+
     public function toDto(): PasswordDTO
     {
         return new PasswordDTO(...$this->validated());

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SeasonController;
 use App\Http\Controllers\Admin\SeasonTeamController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\TournamentController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,22 +46,27 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
             Route::prefix('game')->name('game.')->group(function () {
                 Route::get('{game}', [GameController::class, 'show'])
+                    ->whereNumber('game')
                     ->scopeBindings()
                     ->name('show');
 
                 Route::get('{game}/json', [GameController::class, 'showJson'])
+                    ->whereNumber('game')
                     ->scopeBindings()
                     ->name('show_json');
 
                 Route::post('', [GameController::class, 'store'])->name('store');
 
                 Route::patch('{game}/start', [GameController::class, 'start'])
+                    ->whereNumber('game')
                     ->scopeBindings()
                     ->name('start');
                 Route::patch('{game}/finish', [GameController::class, 'finish'])
+                    ->whereNumber('game')
                     ->scopeBindings()
                     ->name('finish');
                 Route::patch('{game}/save-score', [GameController::class, 'saveScore'])
+                    ->whereNumber('game')
                     ->scopeBindings()
                     ->name('save_score');
             });
@@ -72,6 +78,24 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::get('', [ProfileController::class, 'edit'])->name('edit');
         Route::patch('', [ProfileController::class, 'update'])->name('update');
         Route::patch('password', [ProfileController::class, 'updatePassword'])->name('update_password');
+    });
+
+    Route::prefix('user')->name('user.')->group(function () {
+        Route::get('', [UserController::class, 'index'])->name('index');
+        Route::get('create', [UserController::class, 'create'])->name('create');
+        Route::post('', [UserController::class, 'store'])->name('store');
+        Route::get('{user}/edit', [UserController::class, 'edit'])
+            ->whereNumber('user')
+            ->name('edit');
+        Route::patch('{user}', [UserController::class, 'update'])
+            ->whereNumber('user')
+            ->name('update');
+        Route::patch('{user}/password', [UserController::class, 'updatePassword'])
+            ->whereNumber('user')
+            ->name('update_password');
+        Route::delete('{user}/destroy', [UserController::class, 'destroy'])
+            ->whereNumber('user')
+            ->name('destroy');
     });
 });
 

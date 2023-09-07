@@ -35,7 +35,7 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        $this->userService->update($user, $request->toDto());
+        $this->userService->updateAndClearCache($user, $request->toDto());
 
         return to_route('admin.profile.edit');
     }
@@ -45,7 +45,7 @@ class ProfileController extends Controller
         /** @var User $user */
         $user = auth()->user();
 
-        $this->userService->updatePassword($user, $request->toDto());
+        $this->userService->updatePasswordAndClearCache($user, $request->toDto());
 
         return to_route('admin.profile.edit')->with('password_message', __('Пароль успешно изменён'));
     }

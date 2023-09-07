@@ -28,6 +28,7 @@ class Sidebar
         $this->addMainPage();
         $this->addListPages();
         $this->addMatchesPages();
+        $this->addSettingsPage();
     }
 
     private function addMainPage(): void
@@ -79,6 +80,23 @@ class Sidebar
                         title: __('Сезоны'),
                         path: route('admin.season.index'),
                         active: $this->routeActive->isSeasonList()
+                    )
+                ]
+            )
+        );
+    }
+
+    private function addSettingsPage(): void
+    {
+        $this->sidebar->addPage(
+            page: SidebarItem::make(
+                title: __('Настройки'),
+                active: $this->routeActive->isSettingsList(),
+                children: [
+                    SidebarItem::make(
+                        title: __('Пользователи'),
+                        path: route('admin.user.index'),
+                        active: $this->routeActive->isUsersList()
                     )
                 ]
             )

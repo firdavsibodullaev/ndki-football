@@ -24,7 +24,7 @@ return new class extends Migration {
 
         User::query()->create([
             'name' => 'Admin',
-            'role' => Role::ADMIN->value,
+            'role' => Role::ADMIN,
             'username' => 'admin',
             'password' => bcrypt('password')
         ]);
