@@ -92,11 +92,11 @@ php artisan event:cache
 ```
 
 ```bash
-chown -R www-data:www-data ./storage
+sudo chown -R www-data:www-data ./storage
 ```
 
 ```bash
-chown -R www-data:www-data ./bootstrap/cache
+sudo chown -R www-data:www-data ./bootstrap/cache
 ```
 
 После запуска команды выйдите из контейнера
