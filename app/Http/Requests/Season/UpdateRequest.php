@@ -3,10 +3,8 @@
 namespace App\Http\Requests\Season;
 
 use App\DTOs\Season\SeasonDTO;
-use App\Models\Season;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest

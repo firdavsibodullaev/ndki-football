@@ -10,10 +10,10 @@ use App\Models\Tournament;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
 
-class TournamentService implements TournamentServiceInterface
+readonly class TournamentService implements TournamentServiceInterface
 {
     public function __construct(
-        private readonly TournamentRepositoryInterface $tournamentRepository
+        private TournamentRepositoryInterface $tournamentRepository
     )
     {
     }

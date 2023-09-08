@@ -24,7 +24,7 @@ class ProfileController extends Controller
     public function edit(): View
     {
         return view('admin.user.edit', [
-            'user' => \auth()->user()
+            'user' => auth()->user()
         ]);
     }
 

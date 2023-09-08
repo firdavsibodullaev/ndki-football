@@ -10,9 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SeasonTeam\StoreRequest;
 use App\Http\Resources\TeamResource;
 use App\Models\Season;
-use App\Models\SeasonTeam;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class SeasonTeamController extends Controller

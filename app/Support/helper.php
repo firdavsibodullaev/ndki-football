@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 
 if (!function_exists('rroute')) {
@@ -12,7 +13,7 @@ if (!function_exists('rroute')) {
 }
 
 if (!function_exists('to_rroute')) {
-    function to_rroute($route, $parameters = [], $status = 302, $headers = [])
+    function to_rroute($route, $parameters = [], $status = 302, $headers = []): RedirectResponse
     {
         $parameters = $parameters + request()->query();
 

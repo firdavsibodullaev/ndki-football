@@ -9,10 +9,10 @@ use Illuminate\Http\UploadedFile;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class MediaLibraryService implements MediaLibraryServiceInterface
+readonly class MediaLibraryService implements MediaLibraryServiceInterface
 {
     public function __construct(
-        private readonly MediaLibraryRepositoryInterface $libraryRepository
+        private MediaLibraryRepositoryInterface $libraryRepository
     )
     {
     }

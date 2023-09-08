@@ -2,7 +2,9 @@
 
 namespace App\DTOs\Season;
 
-class SeasonParametersDTO
+use App\DTOs\BaseDTO;
+
+class SeasonParametersDTO extends BaseDTO
 {
     public function __construct(
         public readonly ?OrderParameterDTO $order_by = null,

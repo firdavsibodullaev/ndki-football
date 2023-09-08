@@ -2,11 +2,11 @@
 
 namespace App\DTOs;
 
-class RouteNameDTO
+readonly class RouteNameDTO
 {
     public function __construct(
-        public readonly string  $name,
-        public readonly ?string $variable = null
+        public string  $name,
+        public ?string $variable = null
     )
     {
     }

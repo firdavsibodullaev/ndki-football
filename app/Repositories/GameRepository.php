@@ -6,7 +6,6 @@ use App\Contracts\Game\GameRepositoryInterface;
 use App\DTOs\Game\SaveScoreDTO;
 use App\Enums\Game as GameEnum;
 use App\Models\Game;
-use App\Models\GamePlayer;
 
 class GameRepository implements GameRepositoryInterface
 {

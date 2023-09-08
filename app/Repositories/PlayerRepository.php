@@ -12,9 +12,8 @@ class PlayerRepository implements PlayerRepositoryInterface
 {
     public function get(PlayerFilterDTO $filter): Collection
     {
-        return Player::query()
+        return Player::filter($filter->toArray())
             ->with(['team', 'avatar'])
-            ->filter($filter->toArray())
             ->get();
     }
 

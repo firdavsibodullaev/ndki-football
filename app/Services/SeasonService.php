@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Contracts\Season\SeasonRepositoryInterface;
 use App\Contracts\Season\SeasonServiceInterface;
-use App\DTOs\Season\OrderParameterDTO;
 use App\DTOs\Season\SeasonDTO;
 use App\DTOs\Season\SeasonParametersDTO;
 use App\Enums\CacheKeys;

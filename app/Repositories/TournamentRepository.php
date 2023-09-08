@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TournamentRepository implements TournamentRepositoryInterface
 {
-
     public function get(): Collection
     {
         return Tournament::query()->get();

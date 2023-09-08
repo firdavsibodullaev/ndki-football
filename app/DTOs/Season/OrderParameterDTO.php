@@ -2,7 +2,9 @@
 
 namespace App\DTOs\Season;
 
-class OrderParameterDTO
+use App\DTOs\BaseDTO;
+
+class OrderParameterDTO extends BaseDTO
 {
     public function __construct(
         public readonly string $column,

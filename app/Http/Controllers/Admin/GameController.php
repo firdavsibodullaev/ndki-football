@@ -9,7 +9,6 @@ use App\Http\Requests\Game\SaveScoreRequest;
 use App\Http\Requests\Game\StartGameRequest;
 use App\Http\Requests\Game\StoreRequest;
 use App\Http\Resources\GameResource;
-use App\Http\Resources\SeasonResource;
 use App\Models\Game;
 use App\Models\Season;
 use Illuminate\Contracts\View\View;

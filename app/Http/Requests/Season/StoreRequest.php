@@ -5,7 +5,6 @@ namespace App\Http\Requests\Season;
 use App\DTOs\Season\SeasonDTO;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest

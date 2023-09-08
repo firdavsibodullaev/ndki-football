@@ -9,7 +9,6 @@ use App\Contracts\Game\GameServiceInterface;
 use App\Contracts\GamePlayer\GamePlayerServiceInterface;
 use App\Contracts\Season\SeasonRepositoryInterface;
 use App\Contracts\SeasonTeam\SeasonTeamRepositoryInterface;
-use App\Contracts\SeasonTeam\SeasonTeamServiceInterface;
 use App\DTOs\Game\GameDTO;
 use App\DTOs\Game\GameGoalDTO;
 use App\DTOs\Game\SaveScoreDTO;
@@ -24,9 +23,9 @@ use Illuminate\Support\Facades\DB;
 readonly class GameService implements GameServiceInterface
 {
     public function __construct(
-        private GamePlayerServiceInterface $gamePlayerService,
-        private GameRepositoryInterface    $gameRepository,
-        private SeasonRepositoryInterface  $seasonRepository,
+        private GamePlayerServiceInterface    $gamePlayerService,
+        private GameRepositoryInterface       $gameRepository,
+        private SeasonRepositoryInterface     $seasonRepository,
         private SeasonTeamRepositoryInterface $seasonTeamRepository
     )
     {

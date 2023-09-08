@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\MediaCollection;
 use App\Filters\Player\TeamFilter;
 use App\Traits\InteractsWithFilters;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,6 +28,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read string $full_name
  * @property-read string $name_initials
  * @property-read Media|null $avatar
+ * @method static Builder filter(array $filer)
  */
 class Player extends Model implements HasMedia
 {

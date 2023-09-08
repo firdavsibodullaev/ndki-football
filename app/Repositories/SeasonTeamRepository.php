@@ -8,7 +8,6 @@ use App\DTOs\SeasonTeam\SeasonTeamDTO;
 use App\Enums\GameResult;
 use App\Models\Season;
 use App\Models\SeasonTeam;
-use Illuminate\Database\Eloquent\Collection;
 
 class SeasonTeamRepository implements SeasonTeamRepositoryInterface
 {
