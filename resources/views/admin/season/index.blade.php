@@ -6,11 +6,11 @@
             <h5 class="card-title">{{ __('Сезоны') }}</h5>
         </div>
         <div class="card-body">
-
-            <div class="my-3">
-                <a href="{{ route('admin.season.create') }}" class="btn btn-primary">{{ __('Новый сезон') }}</a>
-            </div>
-
+            @if(is_admin())
+                <div class="my-3">
+                    <a href="{{ route('admin.season.create') }}" class="btn btn-primary">{{ __('Новый сезон') }}</a>
+                </div>
+            @endif
             <table class="table table-striped text-center">
                 <thead>
                 <tr>
@@ -35,16 +35,12 @@
                                class="btn btn-success">
                                 {{ __('Смотреть') }}
                             </a>
-                            <a href="{{ route('admin.season.edit', $season->id) }}"
-                               class="btn btn-warning">
-                                {{ __('Изменить') }}
-                            </a>
-                            <a href="javascript:void(0)"
-                               onclick="openDeleteModal(this)"
-                               data-id="{{ $season->id }}"
-                               class="btn btn-danger">
-                                {{ __('Удалить') }}
-                            </a>
+                            @if(is_admin())
+                                <a href="{{ route('admin.season.edit', $season->id) }}"
+                                   class="btn btn-warning">
+                                    {{ __('Изменить') }}
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -52,5 +48,4 @@
             </table>
         </div>
     </div>
-    <x-modals.delete-modal :action="route('admin.season.destroy', 'ID0')"/>
 @endsection

@@ -27,6 +27,10 @@ class Sidebar
 
     private function mergePages(): string
     {
-        return $this->pages->map(fn(SidebarItem $item) => $item->toHtml())->implode(" ");
+        $this->pages->ensure(SidebarItem::class);
+
+        return $this->pages
+            ->filter(fn(SidebarItem $item) => $item->isPermitted())
+            ->map(fn(SidebarItem $item) => $item->toHtml())->implode(" ");
     }
 }

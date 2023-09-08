@@ -7,11 +7,11 @@ use App\Constructors\Sidebar\Sidebar as SidebarConstructor;
 use App\Constructors\Sidebar\SidebarItem;
 use Illuminate\View\View;
 
-class Sidebar
+readonly class Sidebar
 {
     public function __construct(
-        private readonly SidebarConstructor $sidebar,
-        private readonly RouteActive        $routeActive
+        private SidebarConstructor $sidebar,
+        private RouteActive        $routeActive
     )
     {
     }
@@ -52,19 +52,23 @@ class Sidebar
                     SidebarItem::make(
                         title: __('Команды'),
                         path: route('admin.team.index'),
-                        active: $this->routeActive->isTeamList()
+                        active: $this->routeActive->isTeamList(),
+                        permission: is_admin()
                     ),
                     SidebarItem::make(
                         title: __('Игроки'),
                         path: route('admin.player.index'),
-                        active: $this->routeActive->isPlayerList()
+                        active: $this->routeActive->isPlayerList(),
+                        permission: is_admin()
                     ),
                     SidebarItem::make(
                         title: __('Турниры'),
                         path: route('admin.tournament.index'),
-                        active: $this->routeActive->isTournamentList()
+                        active: $this->routeActive->isTournamentList(),
+                        permission: is_admin()
                     )
-                ]
+                ],
+                permission: is_admin()
             )
         );
     }
@@ -96,9 +100,11 @@ class Sidebar
                     SidebarItem::make(
                         title: __('Пользователи'),
                         path: route('admin.user.index'),
-                        active: $this->routeActive->isUsersList()
+                        active: $this->routeActive->isUsersList(),
+                        permission: is_admin()
                     )
-                ]
+                ],
+                permission: is_admin()
             )
         );
     }

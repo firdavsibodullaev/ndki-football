@@ -15,4 +15,9 @@ enum Role: int
             self::MODERATOR => __('Модератор'),
         };
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->value === self::ADMIN->value;
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Str;
 
 if (!function_exists('rroute')) {
@@ -58,5 +59,15 @@ if (!function_exists('is_active')) {
         return "<span class=\"text-danger\">
                     <i class=\"fas fa-times-circle\"></i>
                 </span>";
+    }
+}
+
+if (!function_exists('is_admin')) {
+    function is_admin(): bool
+    {
+        /** @var User $user */
+        $user = auth()->user();
+
+        return $user->role->isAdmin();
     }
 }

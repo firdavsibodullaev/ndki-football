@@ -4,23 +4,25 @@ namespace App\Constructors\Sidebar;
 
 use Illuminate\Contracts\Support\Htmlable;
 
-class SidebarItem implements Htmlable
+readonly class SidebarItem implements Htmlable
 {
     public static function make(
         string  $title,
         ?string $path = null,
         bool    $active = false,
-        array   $children = []
+        array   $children = [],
+        bool    $permission = true
     ): static
     {
-        return new static($title, $path, $active, $children);
+        return new static($title, $path, $active, $children, $permission);
     }
 
     public function __construct(
-        private readonly string  $title,
-        private readonly ?string $path = null,
-        private readonly bool    $active = false,
-        private readonly array   $children = []
+        private string  $title,
+        private ?string $path = null,
+        private bool    $active = false,
+        private array   $children = [],
+        private bool    $permission = true
     )
     {
     }
@@ -36,6 +38,11 @@ class SidebarItem implements Htmlable
         }
 
         return $this->sidebarItem();
+    }
+
+    public function isPermitted(): bool
+    {
+        return $this->permission;
     }
 
     private function isHeader(): bool

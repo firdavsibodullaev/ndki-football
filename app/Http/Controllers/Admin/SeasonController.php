@@ -24,6 +24,7 @@ class SeasonController extends Controller
         private readonly TournamentServiceInterface $tournamentService
     )
     {
+        $this->middleware('check_role:admin')->except(['index', 'show', 'showJson']);
     }
 
     /**
@@ -73,6 +74,9 @@ class SeasonController extends Controller
             'seasonTeams' => fn(HasMany $hasMany) => $hasMany
                 ->with('team')
                 ->orderByDesc('points')
+                ->orderByDesc('victory')
+                ->orderByDesc('draw')
+                ->orderBy('defeat')
                 ->orderByRaw('(goals_scored - goals_conceded) DESC'),
             'tournament',
             'games.home.team.logo',
@@ -117,13 +121,5 @@ class SeasonController extends Controller
         $id = $request->query('id');
 
         return to_rroute($route->name, [$route->variable => $id]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Season $season)
-    {
-        //
     }
 }
